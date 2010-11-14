@@ -8,7 +8,7 @@
  * @see  http://kohanaframework.org/guide/using.configuration
  * @see  http://php.net/timezones
  */
-date_default_timezone_set('America/Chicago');
+date_default_timezone_set('Europe/London');
 
 /**
  * Set the default locale.
@@ -60,6 +60,7 @@ if (isset($_ENV['KOHANA_ENV']))
  */
 Kohana::init(array(
 	'base_url'   => '/',
+	'index_file' => FALSE
 ));
 
 /**
@@ -76,13 +77,13 @@ Kohana::$config->attach(new Kohana_Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-	// 'auth'       => MODPATH.'auth',       // Basic authentication
+	'auth'       => MODPATH.'auth',       // Basic authentication
 	// 'cache'      => MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
-	// 'database'   => MODPATH.'database',   // Database access
+	'database'   => MODPATH.'database',   // Database access
 	// 'image'      => MODPATH.'image',      // Image manipulation
-	// 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
-	// 'oauth'      => MODPATH.'oauth',      // OAuth authentication
+	'orm'        => MODPATH.'orm',        // Object Relationship Mapping
+	'oauth'      => MODPATH.'oauth',      // OAuth authentication
 	// 'pagination' => MODPATH.'pagination', // Paging of results
 	// 'unittest'   => MODPATH.'unittest',   // Unit testing
 	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
@@ -94,7 +95,7 @@ Kohana::modules(array(
  */
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
-		'controller' => 'welcome',
+		'controller' => 'home',
 		'action'     => 'index',
 	));
 
@@ -104,8 +105,71 @@ if ( ! defined('SUPPRESS_REQUEST'))
 	 * Execute the main request. A source of the URI can be passed, eg: $_SERVER['PATH_INFO'].
 	 * If no source is specified, the URI will be automatically detected.
 	 */
-	echo Request::instance()
-		->execute()
-		->send_headers()
-		->response;
+	$request = Request::instance();
+
+	try {
+		 // Attempt to execute the response
+		 $request->execute();
+
+	}
+	catch (ReflectionException $e) {
+
+		Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
+
+		if ( Kohana::$environment === Kohana::DEVELOPMENT ) {
+
+			throw $e;
+		}
+
+		$request->response = Request::factory('404')->execute();
+	}
+	catch (Exception404 $e) {
+
+		Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
+
+		if ( Kohana::$environment === Kohana::DEVELOPMENT ) {
+			throw $e;
+		}
+
+		$request->response = Request::factory('404')->execute();
+	}
+	catch (Kohana_Request_Exception $e) {
+
+		Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
+
+		if ( Kohana::$environment === Kohana::DEVELOPMENT ) {
+			throw $e;
+		}
+
+		$request->response = Request::factory('404')->execute();
+	}
+	catch (Exception $e) {
+
+		Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
+
+		if ( Kohana::$environment === Kohana::DEVELOPMENT ) {
+
+			throw $e;
+		}
+		 
+		$request->response = Request::factory('500')->execute();
+	}
+
+	 // Get the total memory and execution time
+	 $total = array(
+	 	//'{profiler}' => (string) View::factory('profiler/stats'),
+		'{memory_usage}' => number_format((memory_get_peak_usage() - KOHANA_START_MEMORY) / 1024, 2).'KB',
+		'{execution_time}' => number_format(microtime(TRUE) - KOHANA_START_TIME, 5).' seconds'
+	);
+
+	// Insert the totals into the response
+	$request->response = strtr( (string) $request->response, $total);
+}
+
+if ( $request->response) {
+
+	/**
+	* Display the request response.
+	*/
+	echo $request->send_headers()->response;
 }
