@@ -1,5 +1,6 @@
 14 Nov 2010
 Changes by Richard Willis (badsyntax)
+
 * Added custom bootstrap.php
 * Added controllers: auth.php, base.php, contact.php, home.php
 * Added models: user.php
