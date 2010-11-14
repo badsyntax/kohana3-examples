@@ -21,4 +21,6 @@ Coming soon..
 
 I'm hoping these files will be useful to those just starting out with Kohana3.
 
+If you'd like to view the front-end of these files, you can do so here: [http://kohana3.badsyntax.co/](http://kohana3.badsyntax.co/)
+
 Feel do what you want with the example code. Suggestions welcome, send emails to willis.rh@gmail.com
