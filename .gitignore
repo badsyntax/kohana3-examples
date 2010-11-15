@@ -1,7 +1,5 @@
-application/media/cache*
-application/cache*
-application/logs*
+application/cache/*
+application/logs/*
+application/config/database.php
 *swp
 .DS_Store
-application/config/database.php
-.gitignore
