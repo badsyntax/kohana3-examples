@@ -25,3 +25,6 @@
 [submodule "modules/sprig"]
 	path = modules/sprig
 	url = https://github.com/shadowhand/sprig.git
+[submodule "modules/oauth"]
+	path = modules/oauth
+	url = https://github.com/kohana/oauth.git
