@@ -21,7 +21,7 @@ Coming soon..
 
 I'm hoping these files will be useful to those just starting out with Kohana3.
 
-View the [CHANGELOG](https://github.com/badsyntax/kohana3-examples/CHANGELOG.md) see an overview of the changes I made to a default Kohana3 install.
+View the [CHANGELOG](https://github.com/badsyntax/kohana3-examples/blob/master/CHANGELOG.md) see an overview of the changes I made to a default Kohana3 install.
 
 If you'd like to view the front-end of these files, you can do so here: [http://kohana3.badsyntax.co/](http://kohana3.badsyntax.co/)
 
