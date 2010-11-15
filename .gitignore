@@ -3,3 +3,5 @@ application/cache*
 application/logs*
 *swp
 .DS_Store
+application/config/database.php
+.gitignore

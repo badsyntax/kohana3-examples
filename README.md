@@ -21,6 +21,11 @@ Coming soon..
 
 I'm hoping these files will be useful to those just starting out with Kohana3.
 
+View the [https://github.com/badsyntax/kohana3-examples/CHANGELOG.md](CHANGELOG) see an overview of the changes I made to a default Kohana3 install.
+
 If you'd like to view the front-end of these files, you can do so here: [http://kohana3.badsyntax.co/](http://kohana3.badsyntax.co/)
+
+You will need to set up your database and create the auth tables if you want to use the auth module. 
+The required SQL can be found in 'modules/auth', or you can use the build scripts located in 'application/build'.
 
 Feel do what you want with the example code. Suggestions welcome, send emails to willis.rh@gmail.com
