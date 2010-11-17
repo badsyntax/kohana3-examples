@@ -39,6 +39,6 @@ I've set up the modules and Kohana 3 system files as submodules from the stable 
 when checking out the kohana3-examples repo you will need to 'git submodule init' and 'git submodule update' to download 
 the submodule repositories. I'm working on a build script to automate this.
 
-Feel free to do what you want with the example code. 
+Feel free to do what you want with the example code.
 
 Suggestions welcome, send emails to willis.rh@gmail.com
