@@ -1,5 +1,28 @@
+# KO3 folders
 application/cache/*
 application/logs/*
-application/config/database.php
-*swp
+
+# Taken from HTML5 Boilerplate https://github.com/paulirish/html5-boilerplate
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+
+# OS or Editor folders
 .DS_Store
+.cache
+.project
+.settings
+thumbs.db
+
+# Folders to ignore
+.hg
+.svn
+.idea
