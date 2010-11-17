@@ -28,3 +28,6 @@
 [submodule "modules/oauth"]
 	path = modules/oauth
 	url = https://github.com/kohana/oauth.git
+[submodule "modules/media"]
+	path = modules/media
+	url = https://github.com/azampagl/kohana-media.git
