@@ -1,4 +1,4 @@
-<?php echo Form::open('auth/signup'), "\n"?>
+<?php echo Form::open(), "\n"?>
 	<fieldset>
 		<?php if (isset($errors)) {?>
 			<p>Errors:</p>

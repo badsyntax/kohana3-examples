@@ -2,7 +2,7 @@
 <a href="<?php echo URL::site('auth/signup')?>">Sign up</a> for a new account. 
 </p>
 
-<?php echo Form::open(Request::instance()->uri())?>
+<?php echo Form::open()?>
 	<fieldset>
                 <?php if (isset($errors)) {?>
 			<p>Errors:</p>
@@ -14,19 +14,14 @@
                 <?php }?>
 
 		<div>
-			<label for="username">
-				Username
-			</label>
+			<label for="username">Username</label>
 			<?php echo Form::input('username', @$_POST['username'], array('id'=>'username')) ?>
 		</div>
-
 		<div>
-			<label for="password">
-				Password
-			</label>
-			<?php echo Form::password('password', '', array('id' => 'password')) ?>
+			<label for="password">Password</label>
+			<?php echo Form::password('password', NULL, array('id' => 'password')) ?>
 		</div>
 
 		<?php echo Form::submit('signin', 'Sign in')?>
-	</fieldset>
+	</fieldset> 
 <?php echo Form::close()?>

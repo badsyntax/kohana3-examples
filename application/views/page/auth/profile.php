@@ -1,4 +1,4 @@
-<?php echo Form::open(Request::instance()->uri)?>
+<?php echo Form::open()?>
 	<fieldset>
 		<?php if (isset($errors)) {?>
 			<p class="error">
