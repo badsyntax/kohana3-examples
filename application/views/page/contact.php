@@ -1,4 +1,4 @@
-<?= Form::open(Request::instance()->uri)?>
+<?= Form::open()?>
 	<fieldset>
 
 		<?php if (@$_REQUEST['status'] == 'sent') {?>

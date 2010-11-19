@@ -17,9 +17,7 @@
 	<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
 	<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 
-	<header>
-		<?php echo View::factory('page/fragments/nav') ?>
-	</header>
+	<?php echo View::factory('page/fragments/header') ?>
 
 	<div id="content">	
 		<?php echo $content ?>

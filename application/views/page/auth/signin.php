@@ -14,12 +14,16 @@
                 <?php }?>
 
 		<div>
-			<label for="username">Username</label>
-			<?php echo Form::input('username', @$_POST['username'], array('id'=>'username')) ?>
+			<?php echo 
+				Form::label('username', 'Username'), 
+				Form::input('username', @$_POST['username'], array('id'=>'username'))
+			?>
 		</div>
 		<div>
-			<label for="password">Password</label>
-			<?php echo Form::password('password', NULL, array('id' => 'password')) ?>
+			<?php echo 
+				Form::label('password', 'Password'), 
+				Form::password('password', NULL, array('id' => 'password')) 
+			?>
 		</div>
 
 		<?php echo Form::submit('signin', 'Sign in')?>

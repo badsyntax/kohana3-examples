@@ -12,20 +12,28 @@
 		<?php }?>
 
 		<div>
-			<label for="username">Username</label>
-			<?php echo Form::input('username', @$_POST['username'] ? $_POST['username'] : $user->username, array('id' => 'username')), "\n"?>
+			<?php echo 
+				Form::label('username', 'Username'),
+				Form::input('username', @$_POST['username'] ? $_POST['username'] : $user->username, array('id' => 'username')), "\n"
+			?>
 		</div>
 		<div>
-			<label for="email">Email</label>
-			<?php echo Form::input('email', @$_POST['email'] ? $_POST['email'] : $user->email, array('id' => 'email')), "\n"?>
+			<?php echo 
+				Form::label('email', 'Email'),
+				Form::input('email', @$_POST['email'] ? $_POST['email'] : $user->email, array('id' => 'email'))
+			?>
 		</div>
 		<div>
-			<label for="password">Password</label>
-			<?php echo Form::password('password', NULL, array('id' => 'password')), "\n"?>
+			<?php echo 
+				Form::label('password', 'Password'),
+				Form::password('password', NULL, array('id' => 'password'))
+			?>
 		</div>
 		<div>
-			<label for="password_confirm">Confirm password</label>
-			<?php echo Form::password('password_confirm', NULL, array('id' => 'password_confirm')), "\n"?>
+			<?php echo 
+				Form::label('password_confirm', 'Confirm password'),
+				Form::password('password_confirm', NULL, array('id' => 'password_confirm'))
+			?>
 		</div>
 
 		<?php echo Form::submit('update', 'Update')?>

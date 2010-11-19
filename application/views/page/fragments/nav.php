@@ -1,5 +1,4 @@
 <nav>
-
 	<a href="<?php echo URL::site()?>">Home</a>
 	<a href="<?php echo URL::site('contact')?>">Contact</a>
 	

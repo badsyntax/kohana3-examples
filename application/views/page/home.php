@@ -1,1 +1,3 @@
-hello, world!
+<p>
+	hello, world!
+</p>
