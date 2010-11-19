@@ -31,7 +31,9 @@ Setup:
 * You will need to set up your database and create the auth tables if you want to use the auth module. 
 * The required SQL can be found in 'modules/auth', or you can use the build scripts located in 'application/build'.
 
-I've create a small build script called [ko3_boilderplate.sh](https://gist.github.com/707402) which performs the above two tasks.
+Easy installation & setup:
+
+* Use [ko3_boilderplate.sh](https://gist.github.com/707402).
 
 Purpose of these files:
 
