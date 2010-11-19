@@ -9,3 +9,6 @@ Example projects:
 
 * https://github.com/shadowhand/wingsc
 * https://github.com/GeertDD/kohanajobs
+
+Misc resources:
+http://code.google.com/p/kohanamodules
