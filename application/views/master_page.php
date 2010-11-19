@@ -18,14 +18,14 @@
 	<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 
 	<header>
-		<?php echo View::factory('page/units/nav') ?>
+		<?php echo View::factory('page/fragments/nav') ?>
 	</header>
 
 	<div id="content">	
 		<?php echo $content ?>
 	</div>
 
-	<?php echo View::factory('page/units/footer') ?>
+	<?php echo View::factory('page/fragments/footer') ?>
 
 	<!-- {execution_time} -->
 </body>
