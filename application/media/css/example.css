@@ -5,6 +5,7 @@ form { margin-top: 1em; }
 label { display: block; }
 input { margin: 0 0 .5em 0; }
 .form-error, .errors { color: #BB0000; }
+.form-success { color: #458B00; }
 
 header, #content, footer { width: 600px; margin: auto; text-align: left; }
 header { margin: 2em auto 1.2em auto; }
