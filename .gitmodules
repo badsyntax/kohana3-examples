@@ -31,3 +31,6 @@
 [submodule "modules/media"]
 	path = modules/media
 	url = https://github.com/azampagl/kohana-media.git
+[submodule "modules/cache"]
+	path = modules/cache
+	url = https://github.com/kohana/cache.git
