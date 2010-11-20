@@ -7,16 +7,15 @@ class Controller_Auth extends Controller_Base {
 
 	public function action_index()
 	{
-
 		Request::instance()->redirect('');
 	}
  
 	public function action_signin()
 	{
-
 		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
 
 		$this->template->title = 'sign in';
+
 		$this->template->content = View::factory('page/auth/signin');
 			
 		if ($_POST) {
@@ -29,10 +28,10 @@ class Controller_Auth extends Controller_Base {
 	
 	public function action_signup()
 	{
-
 		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
 
 		$this->template->title = 'sign up'; 
+
 		$this->template->content = View::factory('page/auth/signup');		
 
 		if ($_POST){
@@ -58,7 +57,6 @@ class Controller_Auth extends Controller_Base {
 
 	public function action_profile()
 	{
-
 		!Auth::instance()->logged_in() AND Request::instance()->redirect('sign-in');
 		
 		$this->template->title = 'profile';
@@ -84,7 +82,6 @@ class Controller_Auth extends Controller_Base {
 	
 	public function action_signout()
 	{
-
 		Auth::instance()->logout();
 
 		Request::instance()->redirect('');		
