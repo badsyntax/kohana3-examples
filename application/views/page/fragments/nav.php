@@ -1,5 +1,6 @@
 <nav>
 	<a href="<?php echo URL::site()?>">Home</a>
+	<a href="<?php echo URL::site('links')?>">Links</a>
 	<a href="<?php echo URL::site('contact')?>">Contact</a>
 	
 	<?php if (Auth::instance()->logged_in()) {?>
