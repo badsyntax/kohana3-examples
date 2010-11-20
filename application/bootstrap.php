@@ -59,8 +59,10 @@ if (isset($_ENV['KOHANA_ENV']))
  * - boolean  caching     enable or disable internal caching                 FALSE
  */
 Kohana::init(array(
-	'base_url'   => '/',
-	'index_file' => FALSE
+	'base_url'	=> '/',
+	'index_file'	=> FALSE,
+	'profile'	=> Kohana::$environment !== Kohana::PRODUCTION,
+	'caching'	=> Kohana::$environment === Kohana::PRODUCTION
 ));
 
 /**
@@ -81,7 +83,7 @@ Kohana::modules(array(
 	'database'	=> MODPATH.'database',   // Database access
 	'orm'		=> MODPATH.'orm',        // Object Relationship Mapping
 	'oauth'		=> MODPATH.'oauth',      // OAuth authentication
-	'swiftmailer'	=> MODPATH.'swiftmailer'
+	'swiftmailer'	=> MODPATH.'swiftmailer',
 	'cache'		=> MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
 	// 'image'      => MODPATH.'image',      // Image manipulation
@@ -94,11 +96,24 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
-Route::set('default', '(<controller>(/<action>(/<id>)))')
-	->defaults(array(
-		'controller' => 'home',
-		'action'     => 'index',
-	));
+
+if ( !Route::cache()){
+
+	Route::set('auth', 'auth/<action>')
+		->defaults(array(
+			'controller' => 'auth',
+			'action' => 'index',
+		));
+
+	Route::set('default', '(<controller>(/<action>(/<id>)))')
+		->defaults(array(
+			'controller' => 'home',
+			'action'     => 'index',
+		));
+
+	// Cache the routes in production
+	Route::cache(Kohana::$environment === Kohana::PRODUCTION);
+}
 
 if ( ! defined('SUPPRESS_REQUEST'))
 {
@@ -113,6 +128,9 @@ if ( ! defined('SUPPRESS_REQUEST'))
 		 $request->execute();
 
 	}
+
+	/* Catch errors */
+
 	catch (ReflectionException $e) {
 
 		Kohana::$log->add(Kohana::ERROR, Kohana::exception_text($e));
@@ -156,19 +174,5 @@ if ( ! defined('SUPPRESS_REQUEST'))
 		$request->response = Request::factory('500')->execute();
 	}
 
-	/* Insert debug data into reponse content */
-
-	$profiler = Profiler::application();
-
-	list($time, $memory) = array_values( $profiler['current'] );
-
-	$data = array(
-		'{memory_usage}' => Text::bytes($memory),
-		'{execution_time}' => round($time, 3).'s'
-		'{profiler}'] => Kohana::$environment === Kohana::DEVELOPMENT ? View::factory('profiler/stats') : ''
-	);
-
-	$request->response = strtr( (string) $request->response, $replace);
+	$request->response AND print $request->send_headers()->response;
 }
-
-$request->response AND echo $request->send_headers()->response;
