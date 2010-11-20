@@ -58,8 +58,7 @@ class Model_User extends Model_Auth_User {
 	{
 		$data = Validate::factory($data)
 			->filter('email', 'trim')
-			->rule('email', 'not_empty')
-			->rule('email', 'email');
+			->rules('email', $this->_rules['email']);
 
 		if ( !$data->check()) return FALSE;
 
@@ -68,13 +67,13 @@ class Model_User extends Model_Auth_User {
 
 		if (!$this->loaded()) return FALSE;
 
-		$request_vars = array(
-			'id='.$this->id,
-			'token='.Auth::instance()->hash_password($this->email.'+'.$this->password.'+'.$time),
-			'time='.time()
-		);
+		$token = Auth::instance()->hash_password($this->email.'+'.$this->password);
 
-		$url = URL::site(Route::get('auth')->uri(array('action' => 'confirm_reset_password')).'?'.implode('&', $request_vars), TRUE);
+		$uri = Route::get('auth')->uri(array('action' => 'confirm_reset_password')).'?id='.$this->id.'&auth_token='.$token;
+
+		$url = URL::site($uri, TRUE);
+
+		Cookie::set('token', $token);
 
 		$email_body = View::factory('email/auth/reset_password')
 			->set('user', $this)
@@ -97,22 +96,24 @@ class Model_User extends Model_Auth_User {
 		return TRUE;
 	}
 
-	public function confirm_reset_password(& $data, $token, $time)
+	public function confirm_reset_password(& $data, $token)
 	{
-		//if (empty($id) OR empty($token) OR empty($time)) return FALSE;
-
 		$data = Validate::factory($data)
 			->filter('password', 'trim')
+			->filter('token', 'trim')
 			->filter('password_confirm', 'trim')
 			->rules('password', $this->_rules['password'])
 			->rules('password_confirm', $this->_rules['password_confirm']);
 
-		if ( !$data->check()) return FALSE;
+		if ( !$data->check() OR !$this->loaded() OR $token !== Auth::instance()->hash_password($this->email.'+'.$this->password, Auth::instance()->find_salt($token))) 
+			return FALSE;
 		
-		if (!$this->loaded()) die('no user');
+		$cookie_token = Cookie::get('token', FALSE) AND Cookie::delete('token');
 
-		//if ($token !== Auth::instance()->hash_password($this->email.'+'.$this->password.'+'.$time, Auth::instance()->find_salt($token))) return FALSE;
+		if ( $token !== $cookie_token ) 
+			return FALSE;
 
+		/* Change users password. The password will be auto-hashed on save.*/
 		$this->password = $data['password'];
 		$this->save();
 

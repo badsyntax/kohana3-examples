@@ -55,29 +55,26 @@ class Controller_Auth extends Controller_Base {
 	public function action_reset_password()
 	{
 		$this->template->title = 'Reset password';
-		
 		$this->template->content = new View('page/auth/reset_password');
 
 		ORM::factory('user')->reset_password($_POST);
 
 		$this->template->content->message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
-
-		$this->template->content->errors = $_POST->errors();
+		$this->template->content->errors = $_POST->errors('reset_password');
 	}
 
 	public function action_confirm_reset_password()
 	{
 		$this->template->title = 'Reset password';
-
-		$this->template->content = new View('page/auth/confirm_reset_password');
+		$this->template->content = View::factory('page/auth/confirm_reset_password')
+			->set('token', @$_REQUEST['auth_token']);
 		
-		$id = (int) Arr::get($_GET, 'id');
-		$token = (string) Arr::get($_GET, 'token');
-		$time = (int) Arr::get($_GET, 'time');
+		$id = (int) Arr::get($_REQUEST, 'id');
+		$token = (string) Arr::get($_REQUEST, 'auth_token');
 
-		ORM::factory('user', $id)->find()->confirm_reset_password($_POST, $token, $time);
+		ORM::factory('user', $id)->find()->confirm_reset_password($_POST, $token);
 
-		$this->template->content->errors = $_POST->errors();
+		$this->template->content->errors = $_POST->errors('confirm_reset_password');
 	}
 
 	public function action_signout()
