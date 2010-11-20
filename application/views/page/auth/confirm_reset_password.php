@@ -10,10 +10,18 @@
 			</ul>
 		<?php }?>
 
+		<?php echo Form::hidden('auth_token', $token)?>
+
 		<div class="field">
 			<?php echo 
-				Form::label('password', 'Enter a new password:'), 
-				Form::password('password', $_POST['password'], array('id'=>'password'))
+				Form::label('password', 'Enter a new password'), 
+				Form::password('password', NULL, array('id'=>'password'))
+			?>
+		</div>
+		<div class="field">
+			<?php echo 
+				Form::label('password_confirm', 'Confirm password'), 
+				Form::password('password_confirm', NULL, array('id'=>'password_confirm'))
 			?>
 		</div>
 
