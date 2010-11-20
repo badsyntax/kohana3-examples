@@ -20,3 +20,7 @@ Changes by Richard Willis (badsyntax)
 * Added DOCS.md
 * Added unofficial 'media' module submodule
 * Added robots.txt
+
+20 Nov 2010
+Change by Richard Willis (badsyntax)
+* Add swiftmailer module (version 4.0.6)
