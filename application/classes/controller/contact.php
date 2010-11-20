@@ -8,7 +8,7 @@ class Controller_Contact extends Controller_Base {
 		$this->template->content = View::factory('page/contact');
 		
 		$recipient = array(
-			'willis.rh@gmail.com' => 'Richard'
+			'recipient@example.com' => 'Recipient Name'
 		);
 
 		$data = Validate::factory($_POST)

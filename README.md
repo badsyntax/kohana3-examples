@@ -33,7 +33,7 @@ Setup:
 
 Easy installation & setup:
 
-* Use [ko3_boilderplate.sh](https://gist.github.com/707402).
+* Use [ko3_boilerplate.sh](https://gist.github.com/707402)
 
 Purpose of these files:
 
