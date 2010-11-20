@@ -98,6 +98,13 @@ class Model_User extends Model_Auth_User {
 
 	public function confirm_reset_password(& $data, $token)
 	{
+		$cookie_token = Cookie::get('token', FALSE);
+
+		if ( $token !== $cookie_token ) {
+
+			throw new Exception('Invalid auth token.');
+		}
+
 		$data = Validate::factory($data)
 			->filter('password', 'trim')
 			->filter('token', 'trim')
@@ -108,15 +115,13 @@ class Model_User extends Model_Auth_User {
 		if ( !$data->check() OR !$this->loaded() OR $token !== Auth::instance()->hash_password($this->email.'+'.$this->password, Auth::instance()->find_salt($token))) 
 			return FALSE;
 		
-		$cookie_token = Cookie::get('token', FALSE) AND Cookie::delete('token');
-
-		if ( $token !== $cookie_token ) 
-			return FALSE;
+		/* Remove token from cookie */
+		Cookie::delete('token');
 
 		/* Change users password. The password will be auto-hashed on save.*/
 		$this->password = $data['password'];
 		$this->save();
 
-		Request::instance()->redirect('auth/signin');
+		Request::instance()->redirect('auth/signin?username='.$this->username);
 	}
 }
