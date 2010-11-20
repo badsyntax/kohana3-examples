@@ -45,7 +45,7 @@
 			<?php echo Form::textarea('message', $_POST['message'], array('id' => 'field-message'))?>
 		</div>
 
-		<?php echo Form::submit('submit', 'Submit')?>
+		<?php echo Form::submit('submit', 'Submit', array('class' => 'button'))?>
 	</fieldset>
 <?= Form::close()?>
 

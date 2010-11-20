@@ -37,6 +37,6 @@
 			?>
 		</div>
 
-		<?php echo Form::submit('update', 'Update')?>
+		<?php echo Form::submit('update', 'Update', array('class' => 'button'))?>
 	</fieldset>
 <?php echo Form::close()?>

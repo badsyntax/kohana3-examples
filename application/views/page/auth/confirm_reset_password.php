@@ -25,6 +25,6 @@
 			?>
 		</div>
 
-		<?php echo Form::submit('save', 'Save')?>
+		<?php echo Form::submit('save', 'Save', array('class' => 'button'))?>
 	</fieldset> 
 <?php echo Form::close()?>

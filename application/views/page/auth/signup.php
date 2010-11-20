@@ -37,7 +37,7 @@
 			?>
 		</div>
 
-		<?php echo Form::submit('signup', 'Sign up')?>
+		<?php echo Form::submit('signup', 'Sign up', array('class' => 'button'))?>
 
 	</fieldset>
 <?php echo Form::close()?>

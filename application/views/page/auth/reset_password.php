@@ -20,7 +20,7 @@
 				?>
 			</div>
 		
-			<?php echo Form::submit('resetpass', 'Reset password')?>
+			<?php echo Form::submit('resetpass', 'Reset password', array('class' => 'button'))?>
 	
 		<?php } else { ?>
 
