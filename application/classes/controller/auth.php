@@ -79,6 +79,54 @@ class Controller_Auth extends Controller_Base {
 			}
 		}
 	}
+
+	// reset password by cresting token ,sending link in email and resaving password
+	public function action_forgot()
+	{
+		$this->template->title = 'Reset password';
+		$this->template->content = new View('page/auth/forgot');
+
+		$data = Validate::factory($_POST)
+			->filter('email', 'trim')
+			->rule('email', 'not_empty')
+			->rule('email', 'email');
+
+		if ($data->check()){
+
+			$user = ORM::factory('user')->where('email', '=', $_POST['email'])->find();
+
+			$message_text = "Hi {$user->username}.\n\nYou requested your password to be reset at: ".URL::site(NULL, TRUE);
+			$message_text .= "\n\nFollow this link to reset your password: ".URL::site('auth/reset', TRUE);
+
+			$transport = Swift_MailTransport::newInstance();
+
+			$mailer = Swift_Mailer::newInstance($transport);
+
+			$message = Swift_Message::newInstance("Password reset")
+				->setFrom(array(
+					'your_website@domain'
+				))
+				->setTo(array(
+					$user->email => $user->username
+				))
+				->addPart($message_text, 'text/plain');
+
+			if ($mailer->send($message)) {
+
+				Session::instance()->set('message_sent', TRUE);
+
+				Request::instance()->redirect(Request::instance()->uri);
+			}
+
+		} else {
+
+			$_POST = $data->as_array();
+	
+			$this->template->content->message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
+
+			$this->template->content->errors = $data->errors();
+		}
+	}
 	
 	public function action_signout()
 	{
