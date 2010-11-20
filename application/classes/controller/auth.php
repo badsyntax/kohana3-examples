@@ -39,13 +39,15 @@ class Controller_Auth extends Controller_Base {
 
 	public function action_profile()
 	{
-		!Auth::instance()->logged_in() AND Request::instance()->redirect('sign-in');
+		!Auth::instance()->logged_in() AND Request::instance()->redirect('auth/signin');
+
+		$user = Auth::instance()->get_user();
 		
 		$this->template->title = 'profile';
 		$this->template->content = View::factory('page/auth/profile');
-		$this->template->content->user = Auth::instance()->get_user();
+		$this->template->content->user = $user;
 	
-		ORM::factory('user', $this->template->content->user->id)->update($_POST) AND Request::instance()->redirect('auth/profile');
+		ORM::factory('user', $user->id)->update($_POST) AND Request::instance()->redirect('auth/profile');
 
 		$this->template->content->errors = $_POST->errors('profile');
 	}
@@ -53,6 +55,7 @@ class Controller_Auth extends Controller_Base {
 	public function action_reset_password()
 	{
 		$this->template->title = 'Reset password';
+		
 		$this->template->content = new View('page/auth/reset_password');
 
 		ORM::factory('user')->reset_password($_POST);
@@ -61,7 +64,22 @@ class Controller_Auth extends Controller_Base {
 
 		$this->template->content->errors = $_POST->errors();
 	}
-	
+
+	public function action_confirm_reset_password()
+	{
+		$this->template->title = 'Reset password';
+
+		$this->template->content = new View('page/auth/confirm_reset_password');
+		
+		$id = (int) Arr::get($_GET, 'id');
+		$token = (string) Arr::get($_GET, 'token');
+		$time = (int) Arr::get($_GET, 'time');
+
+		ORM::factory('user', $id)->find()->confirm_reset_password($_POST, $token, $time);
+
+		$this->template->content->errors = $_POST->errors();
+	}
+
 	public function action_signout()
 	{
 		Auth::instance()->logout();
