@@ -1,27 +1,26 @@
 # Turn on URL rewriting
 RewriteEngine On
 
-# Protect hidden files from being viewed
-<Files .*>
-	Order Deny,Allow
-	Deny From All
-</Files>
-
 # Installation directory
 RewriteBase /
 
-# Protect application and system files from being viewed
-RewriteRule ^(?:application|modules|system)\b.* /index.php/$0 [L]
-
-RewriteCond %{REQUEST_URI} !(^/js|^/css|^/img|^/media)
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-d
-
-AliasMatch ^/(js|img|css)/(.*)$ /var/www/kohana3-examples/application/media/$1/$2
-AliasMatch ^/media/(.*) /var/www/kohana3-examples/application/media/$1
-
+# Protect hidden files from being viewed
+<Files .*>
+Order Deny,Allow
+Deny From All
+</Files>
 # Rewrite all other URLs to index.php/URL
-RewriteRule .* /index.php/$0 [PT]
+
+# Protect application and system files from being viewed
+RewriteRule ^(?:application|modules|system)\b.* index.php/$0 [L]
+
+RewriteRule ^(css|img|js)/(.*)	media/$1/$2
+
+# Allow any files or directories that exist to be displayed directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule .* index.php/$0 [PT]
 
 # The configuration from here is taken from the HTML5 Boilerplate http://html5boilerplate.com/
 
