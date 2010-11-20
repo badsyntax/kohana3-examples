@@ -4,9 +4,12 @@ class Controller_Contact extends Controller_Base {
 
 	public function action_index()
 	{
-
 		$this->template->title = 'Contact';
 		$this->template->content = View::factory('page/contact');
+		
+		$recipient = array(
+			'willis.rh@gmail.com' => 'Richard'
+		);
 
 		$data = Validate::factory($_POST)
 			->filter('name', 'trim')
@@ -29,19 +32,21 @@ class Controller_Contact extends Controller_Base {
 				->setFrom(array(
 					$data['email'] => $data['name'],
 				))
-				->setTo(array(
-					'recipient@email.com' => 'Recipient Name',
-				))
+				->setTo($recipient)
 				->addPart($data['message'], 'text/plain');
 
 			if ($mailer->send($message)) {
 
-				// Redirect to avoid issues with refresh after POST
-				Request::instance()->redirect(Request::instance()->uri.'?status=sent');
+				Session::instance()->set('message_sent', TRUE);
+
+				Request::instance()->redirect(Request::instance()->uri);
 			}
+
 		} else {
 
 			$_POST = $data->as_array();
+
+			$this->template->content->message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
 
 			$this->template->content->errors = $data->errors('contact');
 		}
