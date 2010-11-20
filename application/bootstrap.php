@@ -82,7 +82,7 @@ Kohana::modules(array(
 	'orm'		=> MODPATH.'orm',        // Object Relationship Mapping
 	'oauth'		=> MODPATH.'oauth',      // OAuth authentication
 	'swiftmailer'	=> MODPATH.'swiftmailer'
-	// 'cache'      => MODPATH.'cache',      // Caching with multiple backends
+	'cache'		=> MODPATH.'cache',      // Caching with multiple backends
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
 	// 'image'      => MODPATH.'image',      // Image manipulation
 	// 'pagination' => MODPATH.'pagination', // Paging of results
@@ -156,21 +156,19 @@ if ( ! defined('SUPPRESS_REQUEST'))
 		$request->response = Request::factory('500')->execute();
 	}
 
-	 // Get the total memory and execution time
-	 $total = array(
-	 	//'{profiler}' => (string) View::factory('profiler/stats'),
-		'{memory_usage}' => number_format((memory_get_peak_usage() - KOHANA_START_MEMORY) / 1024, 2).'KB',
-		'{execution_time}' => number_format(microtime(TRUE) - KOHANA_START_TIME, 5).' seconds'
+	/* Insert debug data into reponse content */
+
+	$profiler = Profiler::application();
+
+	list($time, $memory) = array_values( $profiler['current'] );
+
+	$data = array(
+		'{memory_usage}' => Text::bytes($memory),
+		'{execution_time}' => round($time, 3).'s'
+		'{profiler}'] => Kohana::$environment === Kohana::DEVELOPMENT ? View::factory('profiler/stats') : ''
 	);
 
-	// Insert the totals into the response
-	$request->response = strtr( (string) $request->response, $total);
+	$request->response = strtr( (string) $request->response, $replace);
 }
 
-if ( $request->response) {
-
-	/**
-	* Display the request response.
-	*/
-	echo $request->send_headers()->response;
-}
+$request->response AND echo $request->send_headers()->response;
