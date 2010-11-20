@@ -1,7 +1,7 @@
 <?= Form::open()?>
 	<fieldset>
 
-		<?php if (@$_REQUEST['status'] == 'sent') {?>
+		<?php if ($message_sent) {?>
 			<p class="form-success">
 				Message successfully sent!
 			</p>
