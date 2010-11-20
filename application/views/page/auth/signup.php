@@ -1,9 +1,9 @@
 <?php echo Form::open()?>
 	<fieldset>
 
-		<legend>Sign in</legend>
+		<legend>Sign up</legend>
 
-		<?php if (isset($errors)) {?>
+		<?php if ($errors) {?>
 			<p>Errors:</p>
 			<ul class="errors">
 			<?php foreach($errors as $field => $error){?>

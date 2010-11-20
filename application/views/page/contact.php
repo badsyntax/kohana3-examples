@@ -1,6 +1,8 @@
 <?= Form::open()?>
 	<fieldset>
 
+		<legend>Contact</legend>
+
 		<?php if ($message_sent) {?>
 			<p class="form-success">
 				Message successfully sent!

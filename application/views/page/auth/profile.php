@@ -1,5 +1,8 @@
 <?php echo Form::open()?>
 	<fieldset>
+		
+		<legend>Profile</legend>
+
 		<?php if (isset($errors)) {?>
 			<p class="error">
 				Errors:

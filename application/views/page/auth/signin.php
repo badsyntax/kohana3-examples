@@ -4,6 +4,9 @@
 
 <?php echo Form::open()?>
 	<fieldset>
+
+		<legend>Sign in</legend>
+
                 <?php if (isset($errors)) {?>
 			<p>Errors:</p>
                         <ul class="errors">
@@ -31,10 +34,12 @@
 				Form::label('remember', 'Remember me')
 			?>
 		</div>
-		<div class="field">
-			<a href="<?php echo URL::site('auth/forgot')?>">Forgot username or password?</a>
-		</div>
 
-		<?php echo Form::submit('signin', 'Sign in')?>
+		<?php echo Form::submit('signin', 'Sign in', array('style' => 'float:left;margin-right:.5em'))?>
+			
+		<a href="<?php echo URL::site('auth/reset_password')?>">
+			<small>Forgot username or password?</small>
+		</a>
+
 	</fieldset> 
 <?php echo Form::close()?>
