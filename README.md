@@ -5,7 +5,7 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 * Custom base controller
 * Form usage
 * Form validation
-* Contact form
+* Contact form using SwiftMailer
 * ORM & models
 * Validation in the model
 * Authentication using the Auth module
