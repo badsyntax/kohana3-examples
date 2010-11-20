@@ -13,8 +13,8 @@ return array(
 	),
 	'default' => array(
 		'style' => array(
-			'css/style.css',
-			'css/example.css'
+			'css/base.css',
+			'css/style.css'
 		),
 		'script' => array(
 			'js/jquery-1.4.4.min.js',
