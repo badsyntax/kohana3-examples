@@ -13,17 +13,26 @@
                         </ul>
                 <?php }?>
 
-		<div>
+		<div class="field">
 			<?php echo 
 				Form::label('username', 'Username'), 
 				Form::input('username', @$_POST['username'], array('id'=>'username'))
 			?>
 		</div>
-		<div>
+		<div class="field">
 			<?php echo 
 				Form::label('password', 'Password'), 
 				Form::password('password', NULL, array('id' => 'password')) 
 			?>
+		</div>
+		<div class="field checkbox">
+			<?php echo
+				Form::checkbox('remember', 1, TRUE, array('id' => 'remember')),
+				Form::label('remember', 'Remember me')
+			?>
+		</div>
+		<div class="field">
+			<a href="<?php echo URL::site('auth/forgot')?>">Forgot username or password?</a>
 		</div>
 
 		<?php echo Form::submit('signin', 'Sign in')?>
