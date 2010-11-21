@@ -3,22 +3,22 @@
 return array(
 	'mobile' => array(
 		'style' => array(
-			'css/mobile_style.css'
+			'media/css/mobile_style.css'
 		),
 		'script' => array(
-			'js/jquery-1.4.4.min.js',
-			'js/global.mobile.js',
-			'js/jquery.mobile-1.0a2.min.js'
+			'media/js/jquery-1.4.4.min.js',
+			'media/js/global.mobile.js',
+			'media/js/jquery.mobile-1.0a2.min.js'
 		)
 	),
 	'default' => array(
 		'style' => array(
-			'css/base.css',
-			'css/style.css'
+			'media/css/base.css',
+			'media/css/style.css'
 		),
 		'script' => array(
-			'js/jquery-1.4.4.min.js',
-			'js/global.js'
+			'media/js/jquery-1.4.4.min.js',
+			'media/js/global.js'
 		)
 	)
 );
