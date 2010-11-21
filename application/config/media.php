@@ -8,7 +8,7 @@ return array
 		'dir'			=> DOCROOT.'media/cache',
 		'gc'			=> TRUE,
 		'filemtime'		=> TRUE,
-		'compressor'	=> 'yui',
+		'compressor'		=> 'yui',
 	),
 	'js' => array
 	(
@@ -16,6 +16,6 @@ return array
 		'dir'			=> DOCROOT.'media/cache',
 		'gc'			=> TRUE,
 		'filemtime'		=> TRUE,
-		'compressor'	=> 'closure_service',
-	),
+		'compressor'		=> 'closure_service',
+	)
 );
