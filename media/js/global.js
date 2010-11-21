@@ -7,7 +7,18 @@
 
 	// document ready
 	$(function(){
+		
+		var 
+			profiler = $('#profiler-container'), 
+			anchor = $('a[href="#profiler"]');
 
+		profiler.length && anchor.length && anchor
+			.click(function(){
+
+				profiler.fadeToggle('fast');
+
+				anchor.find('span').toggle();
+			});
 	});
 
 })(this.jQuery, document);
