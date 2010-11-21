@@ -1,8 +1,9 @@
 <footer>
 	<?php if (Kohana::$environment === Kohana::DEVELOPMENT){?>
-		<!--
-			{execution_time} - {memory_usage} {cached}
-		-->
+		<a name="profiler" id="profiler"></a>
+		<div id="profiler-container">
+			{profiler}
+		</div>
 	<?php }?>
 </footer>
 
