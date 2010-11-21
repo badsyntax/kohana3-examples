@@ -52,8 +52,6 @@ else if (isset($_SERVER['KOHANA_ENV']))
 	Kohana::$environment = $_SERVER['KOHANA_ENV'];
 }
 
-//Kohana::$environment = Kohana::DEVELOPMENT;
-
 /**
  * Initialize Kohana, setting the default options.
  *
@@ -72,7 +70,7 @@ Kohana::init(array(
 	'index_file'	=> FALSE,
 	'profile'	=> Kohana::$environment !== Kohana::PRODUCTION,
 	'caching'	=> Kohana::$environment === Kohana::PRODUCTION,
-	'errors'	=> Kohana::$environment === Kohana::PRODUCTION
+	'errors'	=> Kohana::$environment !== Kohana::PRODUCTION
 ));
 
 /**
