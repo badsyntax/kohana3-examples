@@ -19,9 +19,9 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus { border-colo
 .button:active { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee'); background: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#eee)); background: -moz-linear-gradient(top,  #ddd,  #eee); }
 .button:hover { color: #000; border-color: #888; outline: none; } 
 .button span { float: left; width: 10.1em; text-align: center; padding-left: 22px; line-height: 18px;}
-.button.twitter span { background: url(/img/twitter-icon.png) no-repeat; }
-.button.facebook span { background: url(/img/facebook-icon.png) no-repeat;}
-.button.google span { background: url(/img/google-icon.png) no-repeat;}
+.button.twitter span { background: url(/media/img/twitter-icon.png) no-repeat; }
+.button.facebook span { background: url(/media/img/facebook-icon.png) no-repeat;}
+.button.google span { background: url(/media/img/google-icon.png) no-repeat;}
 .oauth-signin p.last { margin: 0; }
 header, #content, footer { width: 600px; margin: auto; text-align: left; }
 header { margin: 2em auto 1.2em auto; }
