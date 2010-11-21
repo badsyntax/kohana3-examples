@@ -16,9 +16,9 @@ class Controller_Base extends Controller_Template {
 		
 		parent::before();
 		
-		$this->template->styles = Kohana::config('assets.' . ($this->is_mobile ? 'mobile' : 'default') . '.style');
+		$this->template->styles = Media::instance()->styles( Kohana::config('assets.' . ($this->is_mobile ? 'mobile' : 'default') . '.style'));
 
-		$this->template->scripts = Kohana::config('assets.' . ($this->is_mobile ? 'mobile' : 'default') . '.script');
+		$this->template->scripts = Media::instance()->scripts( Kohana::config('assets.' . ($this->is_mobile ? 'mobile' : 'default') . '.script'));
 	}
 
 	public function after()
