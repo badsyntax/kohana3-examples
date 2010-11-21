@@ -1,5 +1,6 @@
 /* Example site styles */
 body { text-align: center; }
+h1, h2, h2, h4 { margin-bottom: 1em; }
 ul, ol { margin: 0 2em 1em 2em; }
 p, form { margin: 0 0 1em 0; }
 form {}
@@ -12,13 +13,15 @@ form .field.checkbox input { float: left; margin-right: .5em}
 fieldset { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: .8em 1.2em; border: 1px solid #dfdfdf;	background: #fff; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#fdfdfd'); background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fdfdfd)); background: -moz-linear-gradient(top,  #fff,  #fdfdfd); }
 legend { color: #888; display: none; }
 input[type=text], input[type=password] { width: 15em; }
-input[type=text], input[type=password], textarea { padding: .3em .4em; border: 1px solid #aaa; 	-moz-box-shadow: inset 2px 2px 1px #ddd; -webkit-box-shadow: inset 2px 2px 1px #ddd; box-shadow: inset 2px 2px 1px #ddd; }
-input[type=text]:focus, input[type=password]:focus, textarea:focus { border-color: #000; }
-.button { padding: .5em; cursor: pointer; border: 1px solid #bbb; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: #bbb 0 1px 2px; -webkit-box-shadow: #bbb 0 1px 2px; box-shadow: #bbb 0 1px 2px; color: #333; -moz-text-shadow: 1px 1px 0 #FFFFFF; -webkit-text-shadow: 1px 1px 0 #FFFFFF; text-shadow: 1px 1px 0 #FFFFFF; background: #ffffff; background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* firefox */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6)); /* webkit */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* ie */	}
+input[type=text], input[type=password], textarea { padding:.45em .4em .3em .3em; border: 1px solid #aaa; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;	-moz-box-shadow: inset 2px 2px 1px #ddd; -webkit-box-shadow: inset 2px 2px 1px #ddd; box-shadow: inset 2px 2px 1px #ddd; }
+input[type=text]:focus, input[type=password]:focus, textarea:focus { border-color: #222; }
+.button, .button:visited { display: inline-block; padding: .5em; cursor: pointer; border: 1px solid #bbb; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: #bbb 0 1px 2px; -webkit-box-shadow: #bbb 0 1px 2px; box-shadow: #bbb 0 1px 2px; color: #333; -moz-text-shadow: 1px 1px 0 #FFFFFF; -webkit-text-shadow: 1px 1px 0 #FFFFFF; text-shadow: 1px 1px 0 #FFFFFF; background: #ffffff; background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* firefox */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6)); /* webkit */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* ie */	}
 .button:active { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee'); background: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#eee)); background: -moz-linear-gradient(top,  #ddd,  #eee); }
 .button:hover { color: #000; border-color: #888; outline: none; } 
-.button span { float: left; margin-right: .5em  }
-.button span.twitter { background: url(/img/twitter-icon.png) no-repeat; padding-left: 20px; line-height: 18px; }
+.button span { float: left; width: 10.1em; text-align: center; padding-left: 22px; line-height: 18px;}
+.button.twitter span { background: url(/img/twitter-icon.png) no-repeat; }
+.button.facebook span { background: url(/img/facebook-icon.png) no-repeat;}
+.button.google span { background: url(/img/google-icon.png) no-repeat;}
 header, #content, footer { width: 600px; margin: auto; text-align: left; }
 header { margin: 2em auto 1.2em auto; }
 #content {  }
@@ -29,3 +32,4 @@ nav a { padding: 0 1em 0 0; }
 .grid-50 .unit { float: right; width: 48%; }
 .grid-50 .first { float: left; } 
 .helper-center { text-align: center; }
+.helper-right { text-align: right; }
