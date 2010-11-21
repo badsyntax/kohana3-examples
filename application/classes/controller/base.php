@@ -36,7 +36,7 @@ class Controller_Base extends Controller_Template {
 		}
 	}
 
-	private function profile($response, $cached=FALSE)
+	private function profile($response)
 	{
 		$profiler = Profiler::application();
 
@@ -45,8 +45,7 @@ class Controller_Base extends Controller_Template {
 		$data = array(
 			'{memory_usage}' => Text::bytes($memory),
 			'{execution_time}' => round($time, 3).'s',
-			'{profiler}' => Kohana::$environment === Kohana::DEVELOPMENT ? View::factory('profiler/stats') : '',
-			'{cached}' => $cached ? 'from cache' : ''
+			'{profiler}' => Kohana::$environment === Kohana::DEVELOPMENT ? View::factory('profiler/stats') : ''
 		);
 
 		return strtr( (string) $response, $data);
