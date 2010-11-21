@@ -1,6 +1,6 @@
 These Kohana example files demonstrate basic Kohana 3 functionality, including:
 
-* Custom base template controller
+* Base template controller
 * View strucutre
 * Form usage
 * Form validation
@@ -11,14 +11,12 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 * Authentication using the Auth module
 * Simple user signin / signup / change profile
 * HTML5 Boilerplate & jQuery
+* Media compression
 
 Coming soon..
 
 * OAuth
-* Open ID
-* Media compression
 * Mobile
-* Ajax base controller
 
 Installation:
 
