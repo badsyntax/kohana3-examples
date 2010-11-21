@@ -20,6 +20,6 @@
 	</div>
 
 	<?php echo View::factory('page/fragments/footer') ?>
-	<!-- {execution_time} -->
+	<!-- {execution_time} - {memory_usage} -->
 </body>
 </html>
