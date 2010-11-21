@@ -45,23 +45,23 @@
 			</fieldset> 
 		<?php echo Form::close()?>
 	</div>
-	<div class="unit helper-center">
+	<div class="unit helper-center oauth-signin">
 
 		<form>
 
 			<fieldset>
 
-				<p>
+				<p class="last">
 					<a class="button twitter" href="<?php echo URL::site('oauth/twitter/signin')?>">
 						<span>Sign in with Twitter</span>
 					</a>
 				</p>
-				<p>
+				<p class="helper-hidden">
 					<a class="button google" href="<?php echo URL::site('oauth/google/signin')?>">
 						<span>Sign in with Google</span>
 					</a>
 				</p>
-				<p>
+				<p class="helper-hidden">
 					<a class="button facebook" href="<?php echo URL::site('oauth/facebook/signin')?>">
 						<span>Sign in with Facebook</span>
 					</a>
