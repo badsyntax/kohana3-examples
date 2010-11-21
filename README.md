@@ -10,7 +10,6 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 * Validation in the model
 * Authentication using the Auth module
 * Simple user signin / signup / change profile
-* Request caching
 * HTML5 Boilerplate & jQuery
 
 Coming soon..
@@ -27,7 +26,7 @@ I suggest using the [ko3_boilerplate.sh](https://gist.github.com/707402) script 
 
 * git clone git://github.com/badsyntax/kohana3-examples.git kohana3-project
 * cd kohana3-project
-* git submodule update --init`
+* git submodule update --init
 * mkdir application/cache && mkdir application/logs && sudo chmod 777 application/cache application/logs
 * Setup your database, the SQL can be found in 'modules/auth' (or you can use the build scripts located in 'application/build')
 * Ensure your database details are set correctly in the config
