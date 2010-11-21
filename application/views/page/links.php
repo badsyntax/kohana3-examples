@@ -1,3 +1,4 @@
+<h1>Kohana 3 links</h1>
 <ul>
 	<li><a href="http://kohanaframework.org/guide/about.kohana">Official docs</a></li>
 	<li><a href="http://kohanaframework.org/guide/api">API browser</a></li>

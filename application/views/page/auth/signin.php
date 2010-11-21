@@ -51,9 +51,21 @@
 
 			<fieldset>
 
-				<button class="button">
-					<span class="twitter">Sign in with twitter</span>
-				</button>
+				<p>
+					<a class="button twitter" href="<?php echo URL::site('oauth/twitter/signin')?>">
+						<span>Sign in with Twitter</span>
+					</a>
+				</p>
+				<p>
+					<a class="button google" href="<?php echo URL::site('oauth/google/signin')?>">
+						<span>Sign in with Google</span>
+					</a>
+				</p>
+				<p>
+					<a class="button facebook" href="<?php echo URL::site('oauth/facebook/signin')?>">
+						<span>Sign in with Facebook</span>
+					</a>
+				</p>
 			</fieldset>
 		</form>
 	</div>
