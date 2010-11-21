@@ -13,4 +13,13 @@
 		<a href="<?php echo URL::site('auth/signin')?>">Sign in</a>
 		<a href="<?php echo URL::site('auth/signup')?>">Sign up</a>
 	<?php } ?>
+
+	<?php if (Kohana::$environment === Kohana::DEVELOPMENT){?>
+
+		<a class="helper-right" href="#profiler">
+			Profiler 
+			<span class="plus">+</span>
+			<span class="minus helper-hidden">&ndash;</span>
+		</a>
+	<?php }?>
 </nav>
