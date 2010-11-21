@@ -2,6 +2,7 @@
 
 return 
 	Kohana::$environment == Kohana::DEVELOPMENT
+	/* DEVELOPMENT database */
 	? array
 	(
 		'default' => array
@@ -20,6 +21,7 @@ return
 			'profiling'    => TRUE,
 		)
 	)
+	/* PRODUCTION database */
 	: array
 	(
 		'default' => array
