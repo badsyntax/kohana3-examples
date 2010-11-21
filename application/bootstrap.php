@@ -44,25 +44,35 @@ if (isset($_ENV['KOHANA_ENV']))
 {
 	Kohana::$environment = $_ENV['KOHANA_ENV'];
 }
+/*
+ *check if ENV var has been defined in apache vhost
+ */
+else if (isset($_SERVER['KOHANA_ENV']))
+{
+	Kohana::$environment = $_SERVER['KOHANA_ENV'];
+}
+
+//Kohana::$environment = Kohana::DEVELOPMENT;
 
 /**
  * Initialize Kohana, setting the default options.
  *
  * The following options are available:
  *
- * - string   base_url    path, and optionally domain, of your application   NULL
- * - string   index_file  name of your index file, usually "index.php"       index.php
- * - string   charset     internal character set used for input and output   utf-8
- * - string   cache_dir   set the internal cache directory                   APPPATH/cache
- * - boolean  errors      enable or disable error handling                   TRUE
- * - boolean  profile     enable or disable internal profiling               TRUE
- * - boolean  caching     enable or disable internal caching                 FALSE
+ * - string   base_url	  path, and optionally domain, of your application   NULL
+ * - string   index_file  name of your index file, usually "index.php"	     index.php
+ * - string   charset	  internal character set used for input and output   utf-8
+ * - string   cache_dir   set the internal cache directory		     APPPATH/cache
+ * - boolean  errors	  enable or disable error handling		     TRUE
+ * - boolean  profile	  enable or disable internal profiling		     TRUE
+ * - boolean  caching	  enable or disable internal caching		     FALSE
  */
 Kohana::init(array(
 	'base_url'	=> '/',
 	'index_file'	=> FALSE,
 	'profile'	=> Kohana::$environment !== Kohana::PRODUCTION,
-	'caching'	=> Kohana::$environment === Kohana::PRODUCTION
+	'caching'	=> Kohana::$environment === Kohana::PRODUCTION,
+	'errors'	=> Kohana::$environment === Kohana::PRODUCTION
 ));
 
 /**
@@ -79,17 +89,18 @@ Kohana::$config->attach(new Kohana_Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-	'auth'		=> MODPATH.'auth',       // Basic authentication
-	'database'	=> MODPATH.'database',   // Database access
-	'orm'		=> MODPATH.'orm',        // Object Relationship Mapping
-	'oauth'		=> MODPATH.'oauth',      // OAuth authentication
+	'auth'		=> MODPATH.'auth',	// Basic authentication
+	'database'	=> MODPATH.'database',	// Database access
+	'orm'		=> MODPATH.'orm',	// Object Relationship Mapping
+	'oauth'		=> MODPATH.'oauth',	// OAuth authentication
 	'swiftmailer'	=> MODPATH.'swiftmailer',
-	'cache'		=> MODPATH.'cache',      // Caching with multiple backends
-	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
-	// 'image'      => MODPATH.'image',      // Image manipulation
-	// 'pagination' => MODPATH.'pagination', // Paging of results
-	// 'unittest'   => MODPATH.'unittest',   // Unit testing
-	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
+	'media'		=> MODPATH.'media',	// Media caching
+	'cache'		=> MODPATH.'cache',	// Caching with multiple backends
+	'userguide'	=> MODPATH.'userguide', // User guide and API documentation
+	// 'codebench'	=> MODPATH.'codebench', // Benchmarking tool
+	// 'image'	=> MODPATH.'image',	// Image manipulation
+	// 'pagination' => MODPATH.'pagination',// Paging of results
+	// 'unittest'	=> MODPATH.'unittest',	// Unit testing
 	));
 
 /**
@@ -104,7 +115,21 @@ if ( !Route::cache()){
 			'controller' => 'auth',
 			'action' => 'index',
 		));
-
+	Route::set('oauth', 'oauth/<controller>(/<action>)')
+		->defaults(array(
+			'directory' => 'oauth',
+			'action' => 'index',
+		));
+	Route::set('404', '<error>', array('error' => '404'))
+		->defaults(array(
+			'controller' => 'error',
+			'action' => 'index'
+		));
+	Route::set('500', '<error>', array('error' => '500'))
+		->defaults(array(
+			'controller' => 'error',
+			'action' => 'index'
+		));
 	Route::set('default', '(<controller>(/<action>(/<id>)))')
 		->defaults(array(
 			'controller' => 'home',
