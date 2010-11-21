@@ -69,7 +69,7 @@ class Model_User extends Model_Auth_User {
 
 		$token = Auth::instance()->hash_password($this->email.'+'.$this->password);
 
-		$uri = Route::get('auth')->uri(array('action' => 'confirm_reset_password')).'?id='.$this->id.'&auth_token='.$token;
+		$uri = Request::instance()->uri(array('action' => 'confirm_reset_password')) . '?id=' . $this->id . '&auth_token=' . $token;
 
 		$url = URL::site($uri, TRUE);
 
