@@ -12,6 +12,7 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 * OpenID
 * Media compression & caching
 * HTML5 Boilerplate & jQuery
+* AJAX examples (html, xml + json)
 
 *Installation:*
 
@@ -23,6 +24,7 @@ Alternatively:
 * cd kohana3-project
 * git submodule update --init
 * mkdir application/cache && mkdir application/logs && sudo chmod 777 application/cache application/logs
+* mkdir media/cache && sudo chmod 777 media/cache
 * Setup your database, the SQL can be found in 'application/sql' (or you can use the build scripts located in 'application/build')
 * Ensure your database details are set correctly in the config
 
