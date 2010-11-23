@@ -11,15 +11,14 @@ class Controller_General extends Controller_Base {
 	public function action_pagination()
 	{
 		$this->template->title = 'Kohana3 pagination';
-		$this->template->content = View::factory('page/pagination')
-			->bind('pagination_links', $pagination_links);
 
-		$pagination_links = 
-			Pagination::factory(array(
+		$pagination = Pagination::factory(array(
 				'total_items'		=> 100,
 				'items_per_page'	=> 10,
 				'view' 			=> 'pagination/basic'
-			))->render();
+			));
+			
+		$this->template->content = $pagination->render();
 	}
 
 } // End Controller_Generl
