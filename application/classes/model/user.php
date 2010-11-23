@@ -1,5 +1,6 @@
 <?php
 /*
+ * User model
  * some concepts and code taken from https://github.com/GeertDD/kohanajobs/blob/master/application/classes/model/user.php
  */
 
@@ -68,30 +69,25 @@ class Model_User extends Model_Auth_User {
 		if (!$this->loaded()) return FALSE;
 
 		$token = Auth::instance()->hash_password($this->email.'+'.$this->password);
-
 		$uri = Request::instance()->uri(array('action' => 'confirm_reset_password')) . '?id=' . $this->id . '&auth_token=' . $token;
-
 		$url = URL::site($uri, TRUE);
 
 		Cookie::set('token', $token);
 
-		$email_body = View::factory('email/auth/reset_password')
+		$body = View::factory('email/auth/reset_password')
 			->set('user', $this)
 			->set('url', $url);
 
-		$message = Swift_Message::newInstance("Password reset")
+		$message = Swift_Message::newInstance()
+			->setSubject('Password reset')
 			->setFrom(array('your_website@domain'))
 			->setTo(array($this->email => $this->username))
-			->addPart($email_body, 'text/plain');
+			->addPart($body, 'text/plain');
 
 		$transport = Swift_MailTransport::newInstance();
 
-		if (Swift_Mailer::newInstance($transport)->send($message)) {
-
-			Session::instance()->set('message_sent', TRUE);
-
-			Request::instance()->redirect(Request::instance()->uri);
-		}
+		Swift_Mailer::newInstance($transport)
+			->send($message);
 
 		return TRUE;
 	}
@@ -100,8 +96,8 @@ class Model_User extends Model_Auth_User {
 	{
 		$cookie_token = Cookie::get('token', FALSE);
 
-		if ( $token !== $cookie_token ) {
-
+		if ( $token !== $cookie_token ) 
+		{
 			throw new Exception('Invalid auth token.');
 		}
 
@@ -112,8 +108,10 @@ class Model_User extends Model_Auth_User {
 			->rules('password', $this->_rules['password'])
 			->rules('password_confirm', $this->_rules['password_confirm']);
 
-		if ( !$data->check() OR !$this->loaded() OR $token !== Auth::instance()->hash_password($this->email.'+'.$this->password, Auth::instance()->find_salt($token))) 
+		if ( !$data->check() OR !$this->loaded() OR $token !== Auth::instance()->hash_password($this->email.'+'.$this->password, Auth::instance()->find_salt($token)))
+		{
 			return FALSE;
+		}
 		
 		/* Remove token from cookie */
 		Cookie::delete('token');
@@ -124,4 +122,5 @@ class Model_User extends Model_Auth_User {
 
 		Request::instance()->redirect('auth/signin?username='.$this->username);
 	}
-}
+
+} // End Model_User

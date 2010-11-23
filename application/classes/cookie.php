@@ -1,5 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /*
+ * Cookie configurations
  * see http://kohanaframework.org/guide/using.sessions#cookie-settings
  */
 
