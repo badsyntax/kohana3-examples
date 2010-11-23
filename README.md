@@ -2,7 +2,7 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 
 * Base template controller
 * View strucutre
-* Form usage & validation validation
+* Form usage & validation
 * Email using SwiftMailer
 * Messages
 * ORM & models
