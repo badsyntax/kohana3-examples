@@ -12,7 +12,7 @@
 	<li><a id="json-link" href="<?php echo URL::site('ajax/json')?>">JSON</a></li>
 </ul>
 
-<div id="example" style="border:1px solid #eee;padding: 1em;">
+<div id="example" class="helper-hidden" style="border:1px solid #eee;padding: 1em;margin:1em;">
 
 </div>
 
@@ -25,7 +25,7 @@
 
 		e.preventDefault();
 
-		$('#example').load( this.href );
+		$('#example').load( this.href ).fadeIn('fast');
 	});
 
 	$('#xml-link').click(function(e){
@@ -47,6 +47,8 @@
 
 					element.append('<div>Title: ' + title + ' Author: ' + author);
 				});
+
+				element.fadeIn('fast');
 			}
 		});
 	});
@@ -63,10 +65,103 @@
 
 				element.append('<div>' + key + ': ' + val + '</div>');
 			});
-			
+				
+			element.fadeIn('fast');
 		});
 	});
 
 })(this.jQuery);
 
+</script>
+
+<br />
+
+<h2>AJAX form validation</h2>
+
+<p>This example demonstrates using back-end form validation, and errors displayed via AJAX. If Javascript is disabled the form is still fully functional.</p>
+
+<?= Form::open(NULL, array('id' => 'ajax-form'))?>
+	<fieldset>
+
+		<legend>Contact</legend>
+
+		<p class="form-success helper-hidden"><?php echo isset($message) ? $message : ''?></p>
+
+		<div class="field">
+			<label for="field-email">
+				Email
+				<span class="form-error">
+				<?php if (isset($errors['email'])){?>
+					<?php echo $errors['email']?>
+				<?php }?>
+				</span>
+			</label>
+			<?php echo Form::input('email', $_POST['email'], array('id' => 'field-email'))?>
+		</div>
+
+		<div class="field">
+			<label for="field-message">
+				Message
+				<span class="form-error">
+				<?php if (isset($errors['message'])){?>
+						<?php echo $errors['message']?>
+				<?php }?>
+				</span>
+			</label>
+			<?php echo Form::textarea('message', $_POST['message'], array('id' => 'field-message', 'style' => 'height: 60px'))?>
+		</div>
+
+		<?php echo Form::submit('submit', 'Submit', array('class' => 'button'))?>
+	</fieldset>
+<?= Form::close()?>
+
+<script type="text/javascript">
+(function($){
+
+	var form;
+
+	function formSubmitHandler(errors){
+
+		$('.form-error, .form-success').hide();
+
+		if (!errors.length && errors.length !== undefined) {
+
+			form.reset();
+
+			$('.form-success')
+				.hide()
+				.html('Message successfully sent!')
+				.fadeIn('fast');
+
+		} else {
+			
+			$.each(errors, function(key, val){
+
+				var id = $('[name="' + key + '"]').attr('id');
+
+				$('label[for="' + id + '"] .form-error')
+					.hide()
+					.html(val)
+					.fadeIn('fast');
+			});
+
+		}
+	}
+
+	$('#ajax-form').submit(function(e){
+
+		form = this;
+
+		e.preventDefault();
+
+		$.ajax({
+			type: 'POST',
+			url: this.action,
+			data: $(this).serialize(),
+			dataType: 'json',
+			success: formSubmitHandler
+		});
+	});
+
+})(this.jQuery);
 </script>
