@@ -5,7 +5,9 @@ class Controller_Contact extends Controller_Base {
 	public function action_index()
 	{
 		$this->template->title = 'Contact';
-		$this->template->content = View::factory('page/contact');
+		$this->template->content = View::factory('page/contact')
+			->bind('message_sent', $message_sent)
+			->bind('errors', $errors);
 		
 		$recipient = array(
 			'recipient@example.com' => 'Recipient Name'
@@ -28,27 +30,24 @@ class Controller_Contact extends Controller_Base {
 
 			$mailer = Swift_Mailer::newInstance($transport);
 			
-			$message = Swift_Message::newInstance("Feedback from {$data['name']}")
-				->setFrom(array(
-					$data['email'] => $data['name'],
-				))
+			$message = Swift_Message::newInstance()
+				->setSubject("Feedback from {$data['name']}")
+				->setFrom(array($data['email'] => $data['name']))
 				->setTo($recipient)
 				->addPart($data['message'], 'text/plain');
 
-			if ($mailer->send($message)) {
+			Swift_Mailer::newInstance($transport)
+				->send($message);
 
-				Session::instance()->set('message_sent', TRUE);
-
-				Request::instance()->redirect(Request::instance()->uri);
-			}
-
-		} else {
-
-			$_POST = $data->as_array();
-
-			$this->template->content->message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
-
-			$this->template->content->errors = $data->errors('contact');
+			Session::instance()->set('message_sent', TRUE);
+				
+			Request::instance()->redirect(Request::instance()->uri);
 		}
+
+		$_POST = $data->as_array();
+
+		$message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
+
+		$errors = $data->errors('contact');
 	}
 }

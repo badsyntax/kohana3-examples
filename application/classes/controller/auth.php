@@ -12,69 +12,89 @@ class Controller_Auth extends Controller_Base {
  
 	public function action_signin()
 	{
+		// Redirect if user is logged in
 		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
 
 		$this->template->title = 'sign in';
-		$this->template->content = View::factory('page/auth/signin');
+		$this->template->content = View::factory('page/auth/signin')
+			->bind('errors', $errors);
 
-		if ($_POST){
-			
+		if ($_POST)
+		{
+			// If successfull login then redirect to home page
 			ORM::factory('user')->login($_POST) AND Request::instance()->redirect('');
 
-			$this->template->content->errors = $_POST->errors('signin');
+			$errors = $_POST->errors('signin');
 		}
 	}
 	
 	public function action_signup()
 	{
+		// Redirect if user is logged in
 		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
 
 		$this->template->title = 'sign up'; 
-		$this->template->content = View::factory('page/auth/signup');		
+		$this->template->content = View::factory('page/auth/signup')
+			->bind('errors', $errors);
 
+		// If successful signup then redirect to login page
 		ORM::factory('user')->signup($_POST) AND Request::instance()->redirect('');			
 	 
-		$this->template->content->errors = $_POST->errors('signup');
+		$errors = $_POST->errors('signup');
 	}
 
 	public function action_profile()
 	{
+		// Redirect if user is logged in
 		!Auth::instance()->logged_in() AND Request::instance()->redirect('auth/signin');
-
-		$user = Auth::instance()->get_user();
 		
 		$this->template->title = 'profile';
-		$this->template->content = View::factory('page/auth/profile');
-		$this->template->content->user = $user;
-	
-		ORM::factory('user', $user->id)->update($_POST) AND Request::instance()->redirect('auth/profile');
+		$this->template->content = View::factory('page/auth/profile')
+			->bind('errors', $errors);
 
-		$this->template->content->errors = $_POST->errors('profile');
+		// Update logged in user details, if successfull then redirect to profile page
+		Auth::instance()->get_user()->update($_POST) AND Request::instance()->redirect('auth/profile');
+
+		$errors = $_POST->errors('profile');
 	}
 
 	public function action_reset_password()
 	{
 		$this->template->title = 'Reset password';
-		$this->template->content = new View('page/auth/reset_password');
+		$this->template->content = View::factory('page/auth/reset_password')
+			->bind('errors', $errors)
+			->bind('message_sent', $message_sent);
 
-		ORM::factory('user')->reset_password($_POST);
+		// Try send reset passwork link in email
+		if ( ORM::factory('user')->reset_password($_POST))
+		{
+			// Store the result in session
+			Session::instance()->set('message_sent', TRUE);
 
-		$this->template->content->message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
-		$this->template->content->errors = $_POST->errors('reset_password');
+			// Redirect user to prevent refresh on POST request
+			$this->request->redirect(URL::site($this->request->uri(array('action' => 'reset_password'))));
+		}
+
+		// Get and delete the message_sent status from session
+		$message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
+
+		$errors = $_POST->errors('reset_password');
 	}
 
 	public function action_confirm_reset_password()
 	{
 		$this->template->title = 'Reset password';
 		$this->template->content = View::factory('page/auth/confirm_reset_password')
-			->set('token', @$_REQUEST['auth_token']);
+			->set('token', @$_REQUEST['auth_token'])
+			->bind('errors', $errors);
 		
 		$id = (int) Arr::get($_REQUEST, 'id');
+
 		$token = (string) Arr::get($_REQUEST, 'auth_token');
 
 		ORM::factory('user', $id)->find()->confirm_reset_password($_POST, $token);
 
-		$this->template->content->errors = $_POST->errors('confirm_reset_password');
+		$errors = $_POST->errors('confirm_reset_password');
 	}
 
 	public function action_signout()

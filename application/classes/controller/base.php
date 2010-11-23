@@ -4,50 +4,65 @@ class Controller_Base extends Controller_Template {
  
 	public $template = 'master_page';
 
-	public $auth_required = FALSE;
+	protected $auth_required = FALSE;
 
-	public $is_mobile = FALSE;
+	protected $_mobile = FALSE;
 
 	public function before()
 	{
 		$this->authenticate();
 		
-		if ($this->is_mobile = strstr($_SERVER['HTTP_HOST'], 'm.')) $this->template .= '_mobile';
-		
 		parent::before();
-		
-		$this->template->styles = Media::instance()->styles( Kohana::config('assets.' . ($this->is_mobile ? 'mobile' : 'default') . '.style'));
 
-		$this->template->scripts = Media::instance()->scripts( Kohana::config('assets.' . ($this->is_mobile ? 'mobile' : 'default') . '.script'));
+		$this->template->title =
+		$this->template->content = '';
+		
+		$this->template->styles = Media::instance()->styles( Kohana::config('assets.' . ($this->_mobile ? 'mobile' : 'default') . '.style'));
+		$this->template->scripts = Media::instance()->scripts( Kohana::config('assets.' . ($this->_mobile ? 'mobile' : 'default') . '.script'));
 	}
 
 	public function after()
 	{
-		parent::after();
+		if (Request::$is_ajax OR $this->request !== Request::instance())
+		{
 
-		$this->request->response = $this->profile( $this->request->response );
+			// Use the template content as the response
+			$this->request->response = $this->template->content;
+		} 
+		else 
+		{
+			parent::after();
+
+			// Add profiler information to template content
+			$this->request->response = $this->profiler( $this->request->response );
+		}
 	}
 
 	private function authenticate()
 	{
-		if ( $this->auth_required !== FALSE AND Auth::instance()->logged_in($this->auth_required) === FALSE) {
-		
-			Request::instance()->redirect('auth/signin');
+		// If this page is secured and the user is not logged in, then redirect to the signin page
+		if ( $this->auth_required !== FALSE AND Auth::instance()->logged_in($this->auth_required) === FALSE)
+		{
+			$this->request->redirect( URL::site( Route::get('auth', array('action' => 'signin'))));
 		}
 	}
 
-	private function profile($response)
+	private function profiler($content)
 	{
+		// Load the profiler
 		$profiler = Profiler::application();
 
 		list($time, $memory) = array_values( $profiler['current'] );
 
+		// Prep the data
 		$data = array(
 			'{memory_usage}' => Text::bytes($memory),
 			'{execution_time}' => round($time, 3).'s',
 			'{profiler}' => Kohana::$environment === Kohana::DEVELOPMENT ? View::factory('profiler/stats') : ''
 		);
 
-		return strtr( (string) $response, $data);
+		// Replace the placeholders with data
+		return strtr( (string) $content, $data);
 	}
-}
+
+} // End Controller_Base
