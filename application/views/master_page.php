@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js" dir="ltr">
+<html lang="en" class="no-js <?php echo Kohana::$environment?>" dir="ltr">
 <head>
 	<meta charset="utf-8" />
       	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
