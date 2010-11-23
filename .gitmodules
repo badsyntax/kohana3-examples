@@ -37,3 +37,6 @@
 [submodule "modules/openid/vendor"]
 	path = modules/openid/vendor
 	url = https://github.com/openid/php-openid.git
+[submodule "modules/swiftmailer/vendor"]
+	path = modules/swiftmailer/vendor
+	url = https://github.com/swiftmailer/swiftmailer.git
