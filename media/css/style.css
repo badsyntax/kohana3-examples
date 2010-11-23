@@ -5,7 +5,7 @@ ul, ol { margin: 0 2em 1em 2em; }
 p, form { margin: 0 0 1em 0; }
 form {}
 label { padding: .2em 0; display: inline-block; }
-input, textarea { margin: 0 0 .5em 0; display: block; }
+input, textarea { margin: 0; display: block; }
 .form-error, .errors { color: #BB0000; }
 .form-success { color: #458B00; }
 form .field { margin-bottom: .8em; }
@@ -22,6 +22,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus { border-colo
 .button.twitter span { background: url(/media/img/twitter-icon.png) no-repeat; }
 .button.facebook span { background: url(/media/img/facebook-icon.png) no-repeat;}
 .button.google span { background: url(/media/img/google-icon.png) no-repeat;}
+.button.openid span { background: url(/media/img/openid-icon.gif) no-repeat;}
 .oauth-signin p.last { margin: 0; }
 header, #content, footer { width: 600px; margin: auto; text-align: left; }
 header { margin: 2em auto 1.2em auto; }
