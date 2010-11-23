@@ -96,9 +96,9 @@ Kohana::modules(array(
 	'media'		=> MODPATH.'media',	// Media caching
 	'cache'		=> MODPATH.'cache',	// Caching with multiple backends
 	'userguide'	=> MODPATH.'userguide', // User guide and API documentation
+	'pagination'	=> MODPATH.'pagination',// Paging of results
 	// 'codebench'	=> MODPATH.'codebench', // Benchmarking tool
 	// 'image'	=> MODPATH.'image',	// Image manipulation
-	// 'pagination' => MODPATH.'pagination',// Paging of results
 	// 'unittest'	=> MODPATH.'unittest',	// Unit testing
 	));
 
