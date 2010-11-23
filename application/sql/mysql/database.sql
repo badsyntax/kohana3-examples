@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `oauth_id` int( 11 ) NULL,
   `oauth_provider` varchar(32) NULL, 
+  `openid_id` varchar(255) NULL,
   `email` varchar(127) NOT NULL,
   `username` varchar(32) NOT NULL DEFAULT '',
   `password` char(50) NOT NULL,
