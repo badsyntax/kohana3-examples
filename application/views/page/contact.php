@@ -1,3 +1,7 @@
+<p>
+	This simple contact controller demonstrates how to use the Validation class and  
+	SwiftMailer to send email. The contact view demonstrates how to use the Form helper and error handling.
+</p>
 <?= Form::open()?>
 	<fieldset>
 
@@ -9,7 +13,7 @@
 			</p>
 		<?php }?>
 
-		<div>
+		<div class="field">
 			<label for="field-name">
 				Name
 				<?php if (isset($errors['name'])){?>
@@ -21,7 +25,7 @@
 			<?php echo Form::input('name', $_POST['name'], array('id' => 'field-name'))?>
 		</div>
 
-		<div>
+		<div class="field">
 			<label for="field-email">
 				Email
 				<?php if (isset($errors['email'])){?>
@@ -33,7 +37,7 @@
 			<?php echo Form::input('email', $_POST['email'], array('id' => 'field-email'))?>
 		</div>
 
-		<div>
+		<div class="field">
 			<label for="field-message">
 				Message
 				<?php if (isset($errors['message'])){?>
@@ -48,4 +52,3 @@
 		<?php echo Form::submit('submit', 'Submit', array('class' => 'button'))?>
 	</fieldset>
 <?= Form::close()?>
-

@@ -3,7 +3,6 @@
 </p>
 
 <?php if (Kohana::$environment === Kohana::PRODUCTION){?>
-
 <p>
 	This site is in '<em>production</em>' mode, meaning the stylesheet and javascript are
 	minified and cached, and errors and exceptions are supressed. Global exception handling
@@ -16,7 +15,6 @@
 	View the source to see an example.
 </p>
 <?php } elseif (Kohana::$environment === Kohana::DEVELOPMENT){?>
-
 <p>
 	This site is in '<em>development</em>' mode, meaning the stylesheet and javascript are
 	unminified and errors and exceptions are displayed to the user. The <a href="#profiler">profiler</a> has been enabled to help you debug the request.
