@@ -2,6 +2,7 @@
 	<a href="<?php echo URL::site()?>">Home</a>
 	<a href="<?php echo URL::site('ajax')?>">Ajax</a>
 	<a href="<?php echo URL::site('contact')?>">Contact</a>
+	<a href="<?php echo URL::site('general')?>">General</a>
 	
 	<?php if (Auth::instance()->logged_in()) {?>
 		
