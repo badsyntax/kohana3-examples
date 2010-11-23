@@ -24,9 +24,9 @@
 	
 		<?php } else { ?>
 
-			<p class="form-success">
+			<div class="form-success">
 				 A password reset link has been sent to your email.
-			</p>
+			</div>
 		<?php }?>
 
 	</fieldset> 

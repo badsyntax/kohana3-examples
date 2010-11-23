@@ -51,14 +51,19 @@
 
 			<fieldset>
 
-				<p class="last">
+				<p>
 					<a class="button twitter" href="<?php echo URL::site('oauth/twitter/signin')?>">
 						<span>Sign in with Twitter</span>
 					</a>
 				</p>
-				<p class="helper-hidden">
-					<a class="button google" href="<?php echo URL::site('oauth/google/signin')?>">
+				<p>
+					<a class="button google" href="<?php echo URL::site('openid/signin?openid_identity=https://www.google.com/accounts/o8/id')?>">
 						<span>Sign in with Google</span>
+					</a>
+				</p>
+				<p class="last">
+					<a class="button openid" href="<?php echo URL::site('openid/signin')?>">
+						<span>Sign in with OpenID</span>
 					</a>
 				</p>
 				<p class="helper-hidden">
