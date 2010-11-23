@@ -1,7 +1,7 @@
 These Kohana example files demonstrate basic Kohana 3 functionality, including:
 
 * Base template controller
-* View strucutre
+* View structure
 * Form usage & validation
 * Email using SwiftMailer
 * Messages
@@ -10,6 +10,7 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 * Authentication (signin, signup, change profile, lost password)
 * OAuth (twitter)
 * OpenID
+* Pagination
 * Media compression & caching
 * HTML5 Boilerplate & jQuery
 * AJAX examples (html, xml + json)
