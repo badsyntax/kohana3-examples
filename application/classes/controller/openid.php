@@ -1,0 +1,137 @@
+<?php defined('SYSPATH') or die('No direct script access.');
+
+class Controller_OpenID extends Controller_Base {
+
+        protected $store_path = '/tmp/_php_consumer_test';
+
+	public function action_index()
+	{
+		$this->request->redirect('');
+	}
+
+	public function action_signin()
+	{
+		$this->template->title = 'OpenID sign in';
+		$this->template->content = View::factory('page/auth/openid/signin')
+			->bind('errors', $errors);
+
+		@$_REQUEST['openid_identity'] AND $_POST['openid_identity'] = $_REQUEST['openid_identity'];
+
+		$data = Validate::factory($_POST)
+			->filter('openid_identity', 'trim')
+			->filter('openid_identity', 'strip_tags')
+			->rule('openid_identity', 'not_empty')
+			->rule('openid_identity', 'url');
+
+		$data->check() AND $this->begin($data['openid_identity']);
+
+		$_POST = $data->as_array();
+
+		$errors = $data->errors('auth');
+	}
+
+	private function begin($openid='')
+	{
+		$store = new Auth_OpenID_FileStore($this->store_path);
+
+		$consumer = new Auth_OpenID_Consumer($store);
+
+		// Begin the OpenID authentication process.
+		$auth_request = $consumer->begin($openid);
+
+		if (!$auth_request) {
+
+			throw new Exception('Authentication error: not a valid OpenID.');
+		}
+
+		$sreg_request = Auth_OpenID_SRegRequest::build( array('email'), array('nickname', 'fullname') );
+
+		if ($sreg_request) {
+
+			$auth_request->addExtension($sreg_request);
+		}
+
+		$pape_request = new Auth_OpenID_PAPE_Request();
+
+		if ($pape_request) {
+
+			$auth_request->addExtension($pape_request);
+		}
+
+		// Redirect the user to the OpenID server for authentication.
+		// Store the token for this authentication so we can verify the response.
+
+		// For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
+		// form to send a POST request to the server.
+		if ($auth_request->shouldSendRedirect()) {
+
+			$redirect_url = $auth_request->redirectURL(URL::site(NULL, TRUE), URL::site('openid/finish', TRUE));
+
+			if (Auth_OpenID::isFailure($redirect_url)) {
+
+				throw new Exception('Could not redirect to server: '.$redirect_url->message);
+			}
+
+			$this->request->redirect($redirect_url);
+
+		} else {
+
+			$form_html = $auth_request->htmlMarkup(
+				URL::site(NULL, TRUE),
+				URL::site('openid/finish', TRUE),
+				false,
+				array('id' => 'openid_message')
+			);
+
+			if (Auth_OpenID::isFailure($form_html)) {
+
+				throw new Exception('Could not redirect to server: ' . $form_html->message);
+			}
+
+			$this->template->content->form = $form_html;
+		}
+	}
+
+	public function action_finish(){
+
+		$openid = @$_REQUEST['openid_identity'];
+		
+		$store = new Auth_OpenID_FileStore($this->store_path);
+
+		$consumer = new Auth_OpenID_Consumer($store);
+
+		$response = $consumer->complete(URL::site('openid/finish', TRUE));
+
+		if ($response->status == Auth_OpenID_CANCEL) {
+
+			throw new Exception("OpenID authentication cancelled.");
+
+		} else if ($response->status == Auth_OpenID_FAILURE) {
+
+			throw new Exception("OpenID authentication failed: {$response->message}");
+
+		} else if ($response->status == Auth_OpenID_SUCCESS) {
+
+			$openid = htmlentities( $response->getDisplayIdentifier() );
+
+			$user = ORM::factory('user')->where('openid_id', '=', $openid)->find();
+
+			if (!$user->id) {
+
+				$user->openid_id = $openid;
+				$user->email = $openid;
+				$user->username = $openid;
+				$user->save();
+			
+				Auth::instance()->force_login($user);
+
+				$this->request->redirect('/auth/profile');
+			}
+
+			Auth::instance()->force_login($user);
+
+			$this->request->redirect('');
+		}
+	}
+
+}
