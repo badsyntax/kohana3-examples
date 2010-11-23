@@ -34,3 +34,6 @@
 [submodule "modules/cache"]
 	path = modules/cache
 	url = https://github.com/kohana/cache.git
+[submodule "modules/openid/vendor"]
+	path = modules/openid/vendor
+	url = https://github.com/openid/php-openid.git
