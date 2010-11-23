@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `oauth_provider` varchar(32) NULL, 
   `openid_id` varchar(255) NULL,
   `email` varchar(127) NOT NULL,
-  `username` varchar(32) NOT NULL DEFAULT '',
+  `username` varchar(255) NOT NULL DEFAULT '',
   `password` char(50) NOT NULL,
   `logins` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `last_login` int(10) UNSIGNED,
