@@ -5,7 +5,6 @@
       	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title><?php echo $title ?></title>
 	<?php echo implode("\n\t", array_map('HTML::style', $styles)), "\n";?>
-	<link rel="shortcut icon" href="<?php echo URL::site('img/favicon.ico')?>" />
 	<?php echo implode("\n\t", array_map('HTML::script', $scripts)), "\n" ?>
 	<?php echo View::factory('page/fragments/analytics'), "\n"?>
 </head>
