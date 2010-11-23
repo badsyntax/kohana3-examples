@@ -61,6 +61,11 @@
 						<span>Sign in with Google</span>
 					</a>
 				</p>
+				<p>
+					<a class="button yahoo" href="<?php echo URL::site('openid/signin?openid_identity=https://me.yahoo.com')?>">
+						<span>Sign in with Yahoo</span>
+					</a>
+				</p>
 				<p class="last">
 					<a class="button openid" href="<?php echo URL::site('openid/signin')?>">
 						<span>Sign in with OpenID</span>
