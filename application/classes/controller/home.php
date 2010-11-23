@@ -2,11 +2,9 @@
 
 class Controller_Home extends Controller_Base {
 
-	public $cache_request = TRUE;
-
 	public function action_index()
 	{
 		$this->template->title = 'Kohana3 Examples';
-		$this->template->content = new View('page/home');
+		$this->template->content = View::factory('page/home');
 	}
 }
