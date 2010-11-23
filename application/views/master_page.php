@@ -6,7 +6,8 @@
 	<title><?php echo $title ?></title>
 	<?php echo implode("\n\t", array_map('HTML::style', $styles)), "\n";?>
 	<link rel="shortcut icon" href="<?php echo URL::site('img/favicon.ico')?>" />
-	<?php echo implode("\n\t", array_map('HTML::script', $scripts)) ?>
+	<?php echo implode("\n\t", array_map('HTML::script', $scripts)), "\n" ?>
+	<?php echo View::factory('page/fragments/analytics'), "\n"?>
 </head>
 	<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
 	<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
