@@ -91,7 +91,8 @@ Kohana::modules(array(
 	'database'	=> MODPATH.'database',	// Database access
 	'orm'		=> MODPATH.'orm',	// Object Relationship Mapping
 	'oauth'		=> MODPATH.'oauth',	// OAuth authentication
-	'swiftmailer'	=> MODPATH.'swiftmailer',
+	'openid'	=> MODPATH.'openid',	// OpenID authentication
+	'swiftmailer'	=> MODPATH.'swiftmailer', // Swiftmailer mailing package
 	'media'		=> MODPATH.'media',	// Media caching
 	'cache'		=> MODPATH.'cache',	// Caching with multiple backends
 	'userguide'	=> MODPATH.'userguide', // User guide and API documentation
