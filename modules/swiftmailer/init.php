@@ -1,2 +1,2 @@
 <?php  
-	require Kohana::find_file('classes', 'lib/swift_required');  
+	require Kohana::find_file('vendor', 'lib/swift_required');  
