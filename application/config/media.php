@@ -1,4 +1,8 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
+/*
+ * Media module configurations
+ * see https://github.com/azampagl/kohana-media
+ */
 
 return array
 (
