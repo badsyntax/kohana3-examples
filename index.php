@@ -44,7 +44,9 @@ define('EXT', '.php');
  * When using a legacy application with PHP >= 5.3, it is recommended to disable
  * deprecated notices. Disable with: E_ALL & ~E_DEPRECATED
  */
-error_reporting(E_ALL | E_STRICT);
+
+// ignore notices and strict warnings
+error_reporting(E_ALL ^ E_NOTICE);
 
 /**
  * End of standard configuration! Changing any of the code below should only be
@@ -76,7 +78,7 @@ define('SYSPATH', realpath($system).DIRECTORY_SEPARATOR);
 // Clean up the configuration vars
 unset($application, $modules, $system);
 
-if (file_exists('install'.EXT))
+if (FALSE and file_exists('install'.EXT))
 {
 	// Load the installation check
 	return include 'install'.EXT;
