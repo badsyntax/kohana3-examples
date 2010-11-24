@@ -6,26 +6,42 @@ class Controller_Base extends Controller_Template {
 
 	protected $auth_required = FALSE;
 
-	protected $_mobile = FALSE;
-
 	public function before()
 	{
+		// Secure this controller
 		$this->authenticate();
+		
+		// Detect mobile environment from HTTP HOST
+		$this->request->is_mobile = !!strstr(URL::base(TRUE, TRUE), '//mobile.');
+
+		// Set the master template
+		$this->request->is_mobile AND $this->template .= '_mobile';
 		
 		parent::before();
 
 		$this->template->title =
 		$this->template->content = '';
-		
-		$this->template->styles = Media::instance()->styles( Kohana::config('assets.' . ($this->_mobile ? 'mobile' : 'default') . '.style'));
-		$this->template->scripts = Media::instance()->scripts( Kohana::config('assets.' . ($this->_mobile ? 'mobile' : 'default') . '.script'));
+
+		// Set the stylesheet and javascript paths
+		$this->template->styles = Kohana::config('assets.' . ($this->request->is_mobile ? 'mobile' : 'default') . '.style');
+		$this->template->scripts = Kohana::config('assets.' . ($this->request->is_mobile ? 'mobile' : 'default') . '.script');
+
+		// If the media module is enabled then run the scripts through the compressors
+		if (class_exists('Media')) 
+		{
+			$this->template->styles = Media::instance()->styles( $this->template->styles);
+			$this->template->scripts = Media::instance()->scripts( $this->template->scripts);
+		}
 	}
 
 	public function after()
 	{
-		if (Request::$is_ajax OR $this->request !== Request::instance())
-		{
+		// Ajax responses should only return the template content.
+		// Exclude for mobile as jquery-mobile requires the entire page template 
+		$ajax_response = (Request::$is_ajax AND !$this->request->is_mobile);
 
+		if ($ajax_response OR $this->request !== Request::instance())
+		{
 			// Use the template content as the response
 			$this->request->response = $this->template->content;
 		} 
