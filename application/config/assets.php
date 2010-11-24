@@ -1,8 +1,7 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 /*
- * Shared site assets
+ * Site assets configuration
  */
-
 return array(
 	'default' => array(
 		'style' => array(
@@ -16,6 +15,7 @@ return array(
 	),
 	'mobile' => array(
 		'style' => array(
+			'http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css',
 			'media/css/mobile_style.css'
 		),
 		'script' => array(
