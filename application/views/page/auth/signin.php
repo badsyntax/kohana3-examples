@@ -4,8 +4,6 @@
 		<?php echo Form::open()?>
 			<fieldset>
 
-				<legend>Sign in</legend>
-
 				<p><a href="<?php echo URL::site('auth/signup')?>">Sign up</a> for a new account.</p>
 
 				<?php if (isset($errors)) {?>

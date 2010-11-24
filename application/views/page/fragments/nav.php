@@ -3,6 +3,8 @@
 	<a href="<?php echo URL::site('ajax')?>">Ajax</a>
 	<a href="<?php echo URL::site('contact')?>">Contact</a>
 	<a href="<?php echo URL::site('general')?>">General</a>
+
+	<div class="helper-right">
 	
 	<?php if (Auth::instance()->logged_in()) {?>
 		
@@ -17,10 +19,12 @@
 
 	<?php if (Kohana::$environment === Kohana::DEVELOPMENT){?>
 
-		<a class="helper-right" href="#profiler">
+		<a href="#profiler">
 			Profiler 
 			<span class="plus">+</span>
 			<span class="minus helper-hidden">&ndash;</span>
 		</a>
 	<?php }?>
+
+	</div>
 </nav>

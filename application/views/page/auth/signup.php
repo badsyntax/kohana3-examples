@@ -1,8 +1,6 @@
 <?php echo Form::open()?>
 	<fieldset>
 
-		<legend>Sign up</legend>
-
 		<?php if ($errors) {?>
 			<p>Errors:</p>
 			<ul class="errors">

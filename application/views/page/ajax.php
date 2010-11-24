@@ -20,12 +20,10 @@
 
 <h2>AJAX form validation</h2>
 
-<p>This example demonstrates using back-end form validation, and errors displayed via AJAX. If Javascript is disabled the form is still fully functional.</p>
+<p>This example demonstrates using back-end form validation with errors displayed via AJAX. If Javascript is disabled the form is still fully functional.</p>
 
 <?= Form::open(NULL, array('id' => 'ajax-form'))?>
 	<fieldset>
-
-		<legend>Contact</legend>
 
 		<p class="form-success helper-hidden"><?php echo isset($message) ? $message : ''?></p>
 
