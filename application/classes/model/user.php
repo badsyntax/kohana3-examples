@@ -68,10 +68,14 @@ class Model_User extends Model_Auth_User {
 
 		if (!$this->loaded()) return FALSE;
 
+		// generate the token
 		$token = Auth::instance()->hash_password($this->email.'+'.$this->password);
+	
+		// generate the reset password link
 		$uri = Request::instance()->uri(array('action' => 'confirm_reset_password')) . '?id=' . $this->id . '&auth_token=' . $token;
 		$url = URL::site($uri, TRUE);
 
+		// set the token in cookie
 		Cookie::set('token', $token);
 
 		$body = View::factory('email/auth/reset_password')
@@ -108,10 +112,11 @@ class Model_User extends Model_Auth_User {
 			->rules('password', $this->_rules['password'])
 			->rules('password_confirm', $this->_rules['password_confirm']);
 
-		if ( !$data->check() OR !$this->loaded() OR $token !== Auth::instance()->hash_password($this->email.'+'.$this->password, Auth::instance()->find_salt($token)))
-		{
-			return FALSE;
-		}
+		if ( 
+			!$data->check() 
+			OR !$this->loaded() 
+			OR $token !== Auth::instance()->hash_password($this->email.'+'.$this->password, Auth::instance()->find_salt($token))
+		) return FALSE;
 		
 		/* Remove token from cookie */
 		Cookie::delete('token');
@@ -121,6 +126,19 @@ class Model_User extends Model_Auth_User {
 		$this->save();
 
 		Request::instance()->redirect('auth/signin?username='.$this->username);
+	}
+
+	public function save_openid($openid='')
+	{
+		$this->where('openid_id', '=', $openid)->find();
+
+		if ( $this->loaded()) return $this;
+
+		$this->openid_id = 
+		$this->email = 
+		$this->username = $openid;
+		
+		return $this->save();
 	}
 
 } // End Model_User
