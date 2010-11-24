@@ -15,7 +15,7 @@ return array(
 	),
 	'mobile' => array(
 		'style' => array(
-			'http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css',
+			'media/css/mobile/jquery.mobile-1.0a2.css',
 			'media/css/mobile_style.css'
 		),
 		'script' => array(
