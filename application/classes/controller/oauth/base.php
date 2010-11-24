@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /*
- * concepts and code taken from https://github.com/GeertDD/kohanajobs
+ * Taken from https://github.com/GeertDD/kohanajobs/blob/master/application/classes/controller/oauth/base.php
  */
 
 abstract class Controller_OAuth_Base extends Controller_Base {
@@ -16,6 +16,12 @@ abstract class Controller_OAuth_Base extends Controller_Base {
 	public function before()
 	{
 		parent::before();
+
+		// The user is already logged in
+		if (Auth::instance()->logged_in())
+		{
+			Request::instance()->redirect('');
+		}
 
 		// Load the configuration for this provider
 		$this->config = Kohana::config('oauth.'.$this->provider);

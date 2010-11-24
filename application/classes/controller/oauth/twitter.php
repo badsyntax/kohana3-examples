@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /*
- * concepts and code taken from https://github.com/GeertDD/kohanajobs
+ * Adapted from https://github.com/GeertDD/kohanajobs/raw/master/application/classes/controller/oauth/twitter.php
  */
 
 class Controller_OAuth_Twitter extends Controller_OAuth_Base {
