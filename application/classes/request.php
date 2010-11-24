@@ -2,6 +2,6 @@
 
 class Request extends Kohana_Request {
 
-	public $is_mobile = TRUE;
+	public $is_mobile = FALSE;
 
 } // End Request
