@@ -1,4 +1,3 @@
-<?php if (Kohana::$environment === Kohana::PRODUCTION){?>
 <script>
 	var _gaq = [['_setAccount', 'UA-XXXXX-X'], ['_trackPageview']];
 	(function(d, t) {
@@ -9,4 +8,3 @@
 		s.parentNode.insertBefore(g, s);
 	})(document, 'script');
 </script>
-<?php }?>

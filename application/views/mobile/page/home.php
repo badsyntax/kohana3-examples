@@ -17,10 +17,7 @@
 <?php } elseif (Kohana::$environment === Kohana::DEVELOPMENT){?>
 <p>
 	This site is in '<em>development</em>' mode, meaning the stylesheet and javascript are
-	unminified and errors and exceptions are displayed to the user.
-	<?php if (!Request::instance()->is_mobile){?>
-		The <a href="#profiler">profiler</a> has been enabled to help you debug the request.
-	<?php }?>
+	unminified and errors and exceptions are displayed to the user. The <a href="#profiler">profiler</a> has been enabled to help you debug the request.
 </p>
 <p>
 	To change the site environment, you need to change the KOHANA_ENV environment variable in your
