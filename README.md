@@ -14,6 +14,7 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 * Media compression & caching (using the [Media module](https://github.com/azampagl/kohana-media))
 * [HTML5 Boilerplate](http://html5boilerplate.com/) & [jQuery](http://jquery.com/)
 * AJAX examples (html, xml + json)
+* Mobile site using [jQuery Mobile](http://jquerymobile.com/)
 
 *Installation:*
 
