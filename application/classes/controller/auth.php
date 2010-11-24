@@ -103,4 +103,10 @@ class Controller_Auth extends Controller_Base {
 
 		Request::instance()->redirect('');		
 	}
+
+	public function action_service()
+	{
+		$this->template->title = 'Auth service';
+		$this->template->content = View::factory('page/auth/service_mobile');
+	}
 }
