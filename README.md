@@ -17,7 +17,7 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 
 *Installation:*
 
-* View the [https://github.com/badsyntax/kohana3-examples/wiki/Installation](wiki page) for installation instructions.
+* View the [wiki page](https://github.com/badsyntax/kohana3-examples/wiki/Installation) for installation instructions.
 
 *Purpose of these files:*
 
