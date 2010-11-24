@@ -1,4 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+/*
+ * This is a Kohana3 ported version of the php-openid example consumer files 
+ * see https://github.com/openid/php-openid/tree/master/examples/consumer/
+ * The openid module must be enabled for this controller to work.
+ */
 
 class Controller_OpenID extends Controller_Base {
 
@@ -114,19 +119,7 @@ class Controller_OpenID extends Controller_Base {
 
 			$openid = htmlentities( $response->getDisplayIdentifier() );
 
-			$user = ORM::factory('user')->where('openid_id', '=', $openid)->find();
-
-			if (!$user->id) {
-
-				$user->openid_id = $openid;
-				$user->email = $openid;
-				$user->username = $openid;
-				$user->save();
-			
-				Auth::instance()->force_login($user);
-
-				$this->request->redirect('/auth/profile');
-			}
+			$user = ORM::factory('user')->save_openid($openid);
 
 			Auth::instance()->force_login($user);
 
