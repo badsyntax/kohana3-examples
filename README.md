@@ -3,21 +3,21 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 * Base template controller
 * View structure
 * Form usage & validation
-* Email using SwiftMailer
+* Email using [SwiftMailer](https://github.com/swiftmailer/swiftmailer)
 * Messages
 * ORM & models
 * Validation in the model
 * Authentication (signin, signup, change profile, lost password)
 * OAuth (twitter)
-* OpenID
+* OpenID (using [PHP OpenID](https://github.com/openid/php-openid))
 * Pagination
-* Media compression & caching
-* HTML5 Boilerplate & jQuery
+* Media compression & caching (using the [Media module](https://github.com/azampagl/kohana-media))
+* [HTML5 Boilerplate](http://html5boilerplate.com/) & [jQuery](http://jquery.com/)
 * AJAX examples (html, xml + json)
 
 *Installation:*
 
-* View the [https://github.com/badsyntax/kohana3-examples/wiki/Installation](wiki page) for instructions.
+* View the [https://github.com/badsyntax/kohana3-examples/wiki/Installation](wiki page) for installation instructions.
 
 *Purpose of these files:*
 
@@ -26,7 +26,8 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 
 *Disclaimer:*
 
-I can't take credit for all this code, I've mostly just collated example code from the resouces listed in the [DOCS](https://github.com/badsyntax/kohana3-examples/blob/master/DOCS.md).
+Some of the code has been collated from the resources listed in the [DOCS](https://github.com/badsyntax/kohana3-examples/blob/master/DOCS.md). I've
+referenced these projects in the example files.
 
 Demo:
 
