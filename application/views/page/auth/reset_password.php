@@ -16,7 +16,7 @@
 			<div class="field">
 				<?php echo 
 					Form::label('email', 'Enter your email:'), 
-					Form::input('email', $_POST['email'], array('id'=>'email'))
+					Form::input('email', $_POST['email'], array('type' => 'email', 'id'=>'email'))
 				?>
 			</div>
 		

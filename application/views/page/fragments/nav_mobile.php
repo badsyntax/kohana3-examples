@@ -1,6 +1,5 @@
 <nav>
 	<ul data-role="listview" data-inset="true" data-theme="c" data-dividertheme="a">
-		<li data-role="list-divider">Navigation</li>
 		<li><a href="<?php echo URL::site('contact')?>">Contact</a></li>
 		<li><a href="<?php echo URL::site('general')?>">General</a></li>
 

@@ -1,7 +1,9 @@
+<?php if (!Request::instance()->is_mobile){?>
 <p>
 	This simple contact controller demonstrates how to use the Validation class and  
 	SwiftMailer to send email. The contact view demonstrates how to use the Form helper and error handling.
 </p>
+<?php }?>
 <?= Form::open()?>
 	<fieldset>
 
@@ -32,7 +34,7 @@
 					</span>
 				<?php }?>
 			</label>
-			<?php echo Form::input('email', $_POST['email'], array('id' => 'field-email'))?>
+			<?php echo Form::input('email', $_POST['email'], array('type' => 'email', 'id' => 'field-email'))?>
 		</div>
 
 		<div class="field">

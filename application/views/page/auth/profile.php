@@ -13,7 +13,9 @@
 		<div class="field">
 			<?php echo 
 				Form::label('email', 'Email'),
-				Form::input('email', @$_POST['email'] ? $_POST['email'] : Auth::instance()->get_user()->email, array('id' => 'email'))
+				Form::input('email', 
+					@$_POST['email'] ? $_POST['email'] : Auth::instance()->get_user()->email, 
+					array('type' => 'email', 'id' => 'email'))
 			?>
 		</div>
 		<div class="field">

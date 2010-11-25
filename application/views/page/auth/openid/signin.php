@@ -4,6 +4,13 @@
 
 	<?php echo $form?>
 
+	<script type="text/javascript">
+	(function($){
+		// submit the openid form
+		$('form#openid_message').submit();
+	})(this.jQuery);
+	</script>
+
 <?php } else {?>
 
 	<?php echo Form::open()?>
@@ -21,7 +28,7 @@
 			<div class="field">
 				<?php echo
 					Form::label('openid_identity', 'Enter your OpenID URL') .
-					Form::input('openid_identity', $_POST['openid_identity'], array('id'=>'openid_identity'))
+					Form::input('openid_identity', $_POST['openid_identity'], array('type' => 'url', 'id'=>'openid_identity'))
 				?>
 			</div>
 
