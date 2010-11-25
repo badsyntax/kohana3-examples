@@ -102,7 +102,7 @@ class Model_User extends Model_Auth_User {
 
 		if ( $token !== $cookie_token ) 
 		{
-			throw new Exception('Invalid auth token.');
+			throw new Exception(__('Invalid auth token.'));
 		}
 
 		$data = Validate::factory($data)
