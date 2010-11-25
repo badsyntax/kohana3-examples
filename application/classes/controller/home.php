@@ -4,7 +4,7 @@ class Controller_Home extends Controller_Base {
 
 	public function action_index()
 	{
-		$this->template->title = 'Kohana3 Examples';
+		$this->template->title = __('Kohana3 Examples');
 		$this->template->content = View::factory('page/home');
 	}
 }

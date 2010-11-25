@@ -4,7 +4,7 @@ class Controller_Contact extends Controller_Base {
 
 	public function action_index()
 	{
-		$this->template->title = 'Contact';
+		$this->template->title = __('Contact');
 		$this->template->content = View::factory('page/contact')
 			->bind('message_sent', $message_sent)
 			->bind('errors', $errors);

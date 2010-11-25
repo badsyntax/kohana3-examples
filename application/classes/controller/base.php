@@ -16,7 +16,7 @@ class Controller_Base extends Controller_Template {
 
 		// Set the master template
 		$this->request->is_mobile AND $this->template .= '_mobile';
-		
+
 		parent::before();
 
 		$this->template->title =

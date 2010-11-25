@@ -15,7 +15,7 @@ class Controller_Auth extends Controller_Base {
 		// Redirect if user is logged in
 		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
 
-		$this->template->title = 'sign in';
+		$this->template->title = __('Sign in');
 		$this->template->content = View::factory('page/auth/signin' . ($this->request->is_mobile ? '_mobile' : ''))
 			->bind('errors', $errors);
 
@@ -33,7 +33,7 @@ class Controller_Auth extends Controller_Base {
 		// Redirect if user is logged in
 		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
 
-		$this->template->title = 'sign up'; 
+		$this->template->title = __('Sign up'); 
 		$this->template->content = View::factory('page/auth/signup')
 			->bind('errors', $errors);
 
@@ -48,7 +48,7 @@ class Controller_Auth extends Controller_Base {
 		// Redirect if user is logged in
 		!Auth::instance()->logged_in() AND Request::instance()->redirect('auth/signin');
 		
-		$this->template->title = 'profile';
+		$this->template->title = __('Profile');
 		$this->template->content = View::factory('page/auth/profile')
 			->bind('errors', $errors);
 
@@ -60,7 +60,7 @@ class Controller_Auth extends Controller_Base {
 
 	public function action_reset_password()
 	{
-		$this->template->title = 'Reset password';
+		$this->template->title = __('Reset password');
 		$this->template->content = View::factory('page/auth/reset_password')
 			->bind('errors', $errors)
 			->bind('message_sent', $message_sent);
@@ -83,7 +83,7 @@ class Controller_Auth extends Controller_Base {
 
 	public function action_confirm_reset_password()
 	{
-		$this->template->title = 'Reset password';
+		$this->template->title = __('Reset password');
 		$this->template->content = View::factory('page/auth/confirm_reset_password')
 			->set('token', @$_REQUEST['auth_token'])
 			->bind('errors', $errors);
@@ -106,7 +106,7 @@ class Controller_Auth extends Controller_Base {
 
 	public function action_service()
 	{
-		$this->template->title = 'Auth service';
+		$this->template->title = __('Auth service');
 		$this->template->content = View::factory('page/auth/service_mobile');
 	}
 }

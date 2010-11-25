@@ -4,13 +4,13 @@ class Controller_General extends Controller_Base {
 
 	public function action_index()
 	{
-		$this->template->title = 'General';
+		$this->template->title = __('General');
 		$this->template->content = View::factory('page/general');
 	}
 
 	public function action_pagination()
 	{
-		$this->template->title = 'Kohana3 pagination';
+		$this->template->title = __('Kohana3 pagination');
 
 		$pagination = Pagination::factory(array(
 				'total_items'		=> 100,

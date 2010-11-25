@@ -4,7 +4,7 @@ class Controller_Ajax extends Controller_Base {
 
 	public function action_index()
 	{
-		$this->template->title = 'Kohana3 AJAX Examples';
+		$this->template->title = __('Kohana3 AJAX Examples');
 		$this->template->content = View::factory('page/ajax')
 			->bind('errors', $errors);
 
@@ -19,7 +19,7 @@ class Controller_Ajax extends Controller_Base {
 		
 		if ($data->check()){
 			
-			$this->template->content->message = 'Email successfully sent!';
+			$this->template->content->message = __('Email successfully sent!');
 		}
 
 		$_POST = $data->as_array();

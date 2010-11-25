@@ -16,7 +16,7 @@ class Controller_OpenID extends Controller_Base {
 
 	public function action_signin()
 	{
-		$this->template->title = 'OpenID sign in';
+		$this->template->title = __('OpenID sign in');
 		$this->template->content = View::factory('page/auth/openid/signin')
 			->bind('errors', $errors);
 
@@ -46,7 +46,7 @@ class Controller_OpenID extends Controller_Base {
 
 		if (!$auth_request) {
 
-			throw new Exception('Authentication error: not a valid OpenID.');
+			throw new Exception(__('Authentication error: not a valid OpenID.'));
 		}
 
 		$sreg_request = Auth_OpenID_SRegRequest::build( array('email'), array('nickname', 'fullname') );
@@ -73,7 +73,7 @@ class Controller_OpenID extends Controller_Base {
 
 			if (Auth_OpenID::isFailure($redirect_url)) {
 
-				throw new Exception('Could not redirect to server: '.$redirect_url->message);
+				throw new Exception(__('Could not redirect to server:').' '.$redirect_url->message);
 			}
 
 			$this->request->redirect($redirect_url);
@@ -96,7 +96,7 @@ class Controller_OpenID extends Controller_Base {
 
 			if (Auth_OpenID::isFailure($form_html)) {
 
-				throw new Exception('Could not redirect to server: ' . $form_html->message);
+				throw new Exception(__('Could not redirect to server:').' '.$form_html->message);
 			}
 
 			$this->template->content->form = $form_html;
@@ -115,11 +115,11 @@ class Controller_OpenID extends Controller_Base {
 
 		if ($response->status == Auth_OpenID_CANCEL) {
 
-			throw new Exception("OpenID authentication cancelled.");
+			throw new Exception(__('OpenID authentication cancelled.'));
 
 		} else if ($response->status == Auth_OpenID_FAILURE) {
 
-			throw new Exception("OpenID authentication failed: {$response->message}");
+			throw new Exception(__('OpenID authentication failed:').' '.$response->message);
 
 		} else if ($response->status == Auth_OpenID_SUCCESS) {
 
