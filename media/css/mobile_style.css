@@ -1,5 +1,7 @@
 /* Example mobile site styles */
 
 .ui-footer .ui-controlgroup-horizontal {
-	margin:0.4em 0;
+}
+.errors, .form-error {
+	color: #FF0000;
 }
