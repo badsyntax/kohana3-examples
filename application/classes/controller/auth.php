@@ -16,7 +16,7 @@ class Controller_Auth extends Controller_Base {
 		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
 
 		$this->template->title = 'sign in';
-		$this->template->content = View::factory('page/auth/signin')
+		$this->template->content = View::factory('page/auth/signin' . ($this->request->is_mobile ? '_mobile' : ''))
 			->bind('errors', $errors);
 
 		if ($_POST)
