@@ -66,8 +66,7 @@ class Controller_OpenID extends Controller_Base {
 		// Redirect the user to the OpenID server for authentication.
 		// Store the token for this authentication so we can verify the response.
 
-		// For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
-		// form to send a POST request to the server.
+		// For OpenID 1, send a redirect.  For OpenID 2, use a Javascript form to send a POST request to the server.
 		if ($auth_request->shouldSendRedirect()) {
 
 			$redirect_url = $auth_request->redirectURL(URL::site(NULL, TRUE), URL::site('openid/finish', TRUE));
@@ -80,13 +79,20 @@ class Controller_OpenID extends Controller_Base {
 			$this->request->redirect($redirect_url);
 
 		} else {
-
+			
+			// the OpenID library will return a full html document
+			// Auth_OpenID::autoSubmitHTML will wrap the form in body and html tags
+			// see: mobules/openid/vendor/Auth/OpenID/Consumer.php
 			$form_html = $auth_request->htmlMarkup(
 				URL::site(NULL, TRUE),
 				URL::site('openid/finish', TRUE),
 				false,
 				array('id' => 'openid_message')
 			);
+
+			// we just want the form HTML, so strip out the form 
+			$form_html = preg_replace('/^.*<html.*<form/im', '<form', $form_html);
+			$form_html = preg_replace('/<\/body>.*/im', '', $form_html);
 
 			if (Auth_OpenID::isFailure($form_html)) {
 
@@ -127,4 +133,4 @@ class Controller_OpenID extends Controller_Base {
 		}
 	}
 
-}
+} // End Controller OpenID
