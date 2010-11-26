@@ -16,7 +16,7 @@ date_default_timezone_set('Europe/London');
  * @see  http://kohanaframework.org/guide/using.configuration
  * @see  http://php.net/setlocale
  */
-setlocale(LC_ALL, 'en_US.utf-8');
+setlocale(LC_ALL, 'en_GB.utf-8');
 
 /**
  * Enable the Kohana auto-loader.
@@ -70,7 +70,7 @@ Kohana::init(array(
 	'index_file'	=> FALSE,
 	'profile'	=> Kohana::$environment !== Kohana::PRODUCTION,
 	'caching'	=> Kohana::$environment === Kohana::PRODUCTION,
-	'errors'	=> Kohana::$environment !== Kohana::PRODUCTION
+	'errors' 	=> Kohana::$environment !== Kohana::PRODUCTION
 ));
 
 /**
@@ -87,9 +87,9 @@ Kohana::$config->attach(new Kohana_Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-	'auth'		=> MODPATH.'auth',	// Basic authentication
 	'database'	=> MODPATH.'database',	// Database access
 	'orm'		=> MODPATH.'orm',	// Object Relationship Mapping
+	'auth'		=> MODPATH.'auth',	// Basic authentication
 	'oauth'		=> MODPATH.'oauth',	// OAuth authentication
 	'openid'	=> MODPATH.'openid',	// OpenID authentication
 	'swiftmailer'	=> MODPATH.'swiftmailer', // Swiftmailer mailing package
@@ -97,6 +97,8 @@ Kohana::modules(array(
 	'cache'		=> MODPATH.'cache',	// Caching with multiple backends
 	'userguide'	=> MODPATH.'userguide', // User guide and API documentation
 	'pagination'	=> MODPATH.'pagination',// Paging of results
+	'admin'		=> MODPATH.'admin',
+	'message'	=> MODPATH.'message'
 	// 'codebench'	=> MODPATH.'codebench', // Benchmarking tool
 	// 'image'	=> MODPATH.'image',	// Image manipulation
 	// 'unittest'	=> MODPATH.'unittest',	// Unit testing
@@ -109,17 +111,32 @@ Kohana::modules(array(
 
 if ( !Route::cache()){
 
-	Route::set('auth', 'auth/<action>')
+	/* Auth routes */
+	Route::set('auth', 'auth(/<action>)(/<id>)')
 		->defaults(array(
+			'directory' => 'auth',
 			'controller' => 'auth',
-			'action' => 'index',
+			'action' => 'index'
 		));
-	Route::set('oauth', 'oauth/<controller>(/<action>)')
+	Route::set('auth-openid', 'openid(/<action>)(/<id>)')
 		->defaults(array(
-			'directory' => 'oauth',
-			'action' => 'index',
+			'directory' => 'auth',
+			'controller' => 'openid',
+			'action' => 'index'
 		));
+	Route::set('auth-oauth', 'oauth/<controller>(/<action>)')
+		->defaults(array(
+			'directory' => 'auth/oauth',
+			'action' => 'index'
+		));
+
+	/* Error routes */
 	Route::set('404', '<error>', array('error' => '404'))
+		->defaults(array(
+			'controller' => 'error',
+			'action' => 'index'
+		));
+	Route::set('403', '<error>', array('error' => '403'))
 		->defaults(array(
 			'controller' => 'error',
 			'action' => 'index'
@@ -129,6 +146,8 @@ if ( !Route::cache()){
 			'controller' => 'error',
 			'action' => 'index'
 		));
+
+	/* Default route */
 	Route::set('default', '(<controller>(/<action>(/<id>)))')
 		->defaults(array(
 			'controller' => 'home',
