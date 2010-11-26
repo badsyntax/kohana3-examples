@@ -8,39 +8,32 @@
 	function(){h.innerHTML="";k.removeChild(h);k.appendChild(f);l.styleSheet.cssText=""})}})(this,document);@*/
 
 	// add 'js' classname to <html> tag
-	(function setJs(){
-
-		var classes = document.documentElement.className.split(' ');
-
-		classes.push('js');
-
-		document.documentElement.className = classes.join(' ');
-	})();
+	var classes = document.documentElement.className.split(' ');
+	classes.push('js');
+	document.documentElement.className = classes.join(' ');
 
 	// set global vars
-	(function setVars(){
-
-		window._environment = /\bproduction\b/.test( document.documentElement.className ) 
-			? 'production' 
-			: 'development';
-	})();
+	window._environment = /\bproduction\b/i.test( document.documentElement.className ) 
+		? 'production' 
+		: 'development';
 
 	// bind profiler click event handler
 	function profiler(){
 		
 		var 
-			profiler = $('#profiler-container'), 
-			anchor = $('a[href="#profiler"]');
+		profiler = $('#profiler-container'), 
+		anchor = $('a[href="#profiler"]');
 
-		profiler.length && anchor.length && anchor
-			.click(function(){
+		profiler.length 
+		&& anchor.length 
+		&& anchor.click(function(){
 	
-				// show/hide the profiler
-				profiler.fadeToggle('fast');
+			// show/hide the profiler
+			profiler.fadeToggle('fast');
 
-				// toggle the show/hide icon
-				anchor.find('span').toggle();
-			});
+			// toggle the show/hide icon
+			anchor.find('span').toggle();
+		});
 	}
 		
 	// document ready
