@@ -18,11 +18,13 @@ class Model_User extends Model_Auth_User {
 			->filter('password', 'trim')
 			->filter('password_confirm', 'trim');
  
-		foreach($this->_callbacks['username'] as $callback){
+		foreach($this->_callbacks['username'] as $callback)
+		{
 			$data->callback('username', array($this, $callback));
 		}
  
-		foreach($this->_callbacks['email'] as $callback){
+		foreach($this->_callbacks['email'] as $callback)
+		{
 			$data->callback('email', array($this, $callback));
 		}		
  
@@ -34,7 +36,45 @@ class Model_User extends Model_Auth_User {
 
 		Auth::instance()->login($data['username'], $data['password']);
 
-		return TRUE;
+		return $data;
+	}
+
+	public function add_admin(& $data)
+	{
+		$roles = isset($data['roles']) ? (array) $data['roles'] : array();
+
+		$data = Validate::factory($data)
+			->rules('password', $this->_rules['password'])
+			->rules('username', $this->_rules['username'])
+			->rules('email', $this->_rules['email'])
+			->rules('password_confirm', $this->_rules['password_confirm'])
+			->filter('username', 'trim')
+			->filter('email', 'trim')
+			->filter('password', 'trim')
+			->filter('password_confirm', 'trim');
+ 
+		foreach($this->_callbacks['username'] as $callback)
+		{
+			$data->callback('username', array($this, $callback));
+		}
+ 
+		foreach($this->_callbacks['email'] as $callback)
+		{
+			$data->callback('email', array($this, $callback));
+		}		
+ 
+		if (!$data->check()) return FALSE;
+
+		$this->values($data);
+		$this->save();
+
+		foreach($roles as $role)
+		{
+		
+			$this->add('roles', new Model_Role(array('id' => $role)));
+		}
+
+		return $data;
 	}
 
 	public function update(& $data)
@@ -46,13 +86,66 @@ class Model_User extends Model_Auth_User {
 			->filter('email', 'trim')
 			->filter('password', 'trim')
 			->filter('password_confirm', 'trim');
+		
+		foreach($this->_callbacks['email'] as $callback)
+		{
+			$data->callback('email', array($this, $callback));
+		}		
 
 		if ( !$data->check()) return FALSE;
 
 		$this->values($data);
 		$this->save();
 
-		return TRUE;
+		return $data;
+	}
+
+	public function update_admin(& $data)
+	{
+		$roles = isset($data['roles']) ? (array) $data['roles'] : array();
+
+		$data = Validate::factory($data)
+			->rules('email', $this->_rules['email'])
+			->rules('username', $this->_rules['username'])
+			->filter('username', 'trim')
+			->filter('password', 'trim')
+			->filter('email', 'trim');
+
+		!empty($data['password']) AND $data
+			->rules('password', $this->_rules['password'])
+			->rules('password_confirm', $this->_rules['password_confirm']);
+		
+		foreach($this->_callbacks['email'] as $callback)
+		{
+			$data->callback('email', array($this, $callback));
+		}		
+
+		if ( !$data->check()) return FALSE;
+
+		$this->values($data);
+		$this->save();
+		$this->update_roles($roles);
+		
+		return $data;
+	}
+	
+	public function update_roles(& $roles)
+	{
+		foreach(ORM::factory('role')->find_all() as $role) {
+
+			if (in_array($role->id, $roles)) {
+
+				try {
+					// Add roles relationship
+					$this->add('roles', new Model_Role(array('id' => $role->id)));
+
+				} catch(Exception $e){}
+
+			} else {
+				// Remove roles relationship
+				$this->remove('roles', new Model_Role(array('id' => $role->id)));
+			}
+		}
 	}
 
 	public function reset_password(& $data)
