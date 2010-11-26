@@ -40,3 +40,6 @@
 [submodule "modules/swiftmailer/vendor"]
 	path = modules/swiftmailer/vendor
 	url = https://github.com/swiftmailer/swiftmailer.git
+[submodule "modules/message"]
+	path = modules/message
+	url = https://github.com/GeertDD/kohana-message.git
