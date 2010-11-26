@@ -1,20 +1,23 @@
 <?php defined('SYSPATH') or die('No direct script access.');
   
-class Controller_Base extends Controller_Template {
+abstract class Controller_Base extends Controller_Template {
  
-	public $template = 'master_page';
+	public $template = 'page/master_page';
 
 	protected $auth_required = FALSE;
 
 	public function before()
 	{
+		// Store the auth intance 
+		$this->auth = Auth::instance();
+
 		// Secure this controller
 		$this->authenticate();
 		
 		// Detect mobile environment from HTTP HOST
 		$this->request->is_mobile = !!strstr(URL::base(TRUE, TRUE), '//mobile.');
 
-		// Set the master template
+		// Set the mobile master template
 		$this->request->is_mobile AND $this->template .= '_mobile';
 
 		parent::before();
@@ -36,8 +39,8 @@ class Controller_Base extends Controller_Template {
 
 	public function after()
 	{
-		// Ajax responses should only return the template content.
-		// Exclude for mobile as jquery-mobile requires the entire page template 
+		// jquery-mobile requires the entire template returned, 
+		// for all other ajax requests we'll only return the template content
 		$ajax_response = (Request::$is_ajax AND !$this->request->is_mobile);
 
 		if ($ajax_response OR $this->request !== Request::instance())
@@ -54,12 +57,12 @@ class Controller_Base extends Controller_Template {
 		}
 	}
 
-	private function authenticate()
+	public function authenticate()
 	{
-		// If this page is secured and the user is not logged in, then redirect to the signin page
-		if ( $this->auth_required !== FALSE AND Auth::instance()->logged_in($this->auth_required) === FALSE)
+		// If this page is secured and the user is not logged in (or doesn't match role), then redirect to the signin page
+		if ($this->auth_required !== FALSE && Auth::instance()->logged_in($this->auth_required) === FALSE)
 		{
-			$this->request->redirect( URL::site( Route::get('auth', array('action' => 'signin'))));
+			$this->request->redirect('auth/signin');
 		}
 	}
 
@@ -74,6 +77,7 @@ class Controller_Base extends Controller_Template {
 		$data = array(
 			'{memory_usage}' => Text::bytes($memory),
 			'{execution_time}' => round($time, 3).'s',
+			// Only generate the profiler HTML for sites in development
 			'{profiler}' => Kohana::$environment === Kohana::DEVELOPMENT ? View::factory('profiler/stats') : ''
 		);
 
