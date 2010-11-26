@@ -23,8 +23,8 @@
 	</div>
 
 	<a href="<?php echo URL::site()?>">Home</a>
-	<a href="<?php echo URL::site('ajax')?>">Ajax</a>
 	<a href="<?php echo URL::site('contact')?>">Contact</a>
 	<a href="<?php echo URL::site('general')?>">General</a>
 	<a href="<?php echo str_replace('://', 'http://mobile.', URL::base(TRUE, ''))?>">Mobile</a>
+	<a href="<?php echo URL::site('admin')?>">Admin</a>
 </nav>

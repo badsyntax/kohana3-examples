@@ -1,5 +1,5 @@
 <p>
-	Hello, world!
+	<?php echo __('Hello, world!')?>
 </p>
 
 <?php if (Kohana::$environment === Kohana::PRODUCTION AND !Request::instance()->is_mobile){?>

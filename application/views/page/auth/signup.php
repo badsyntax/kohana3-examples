@@ -13,13 +13,13 @@
 		<div class="field">
 			<?php echo 
 				Form::label('username', 'Username'),
-				Form::input('username', @$_POST['username'], array('id' => 'username'))
+				Form::input('username', $_POST['username'], array('id' => 'username'))
 			?>
 		</div>
 		<div class="field">
 			<?php echo 
 				Form::label('email', 'Email'),
-				Form::input('email', @$_POST['email'], array('type' => 'email', 'id' => 'email'))
+				Form::input('email', $_POST['email'], array('type' => 'email', 'id' => 'email'))
 			?>
 		</div>
 		<div class="field">

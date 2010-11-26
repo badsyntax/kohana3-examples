@@ -7,9 +7,9 @@
 <h2>Data type examples</h2>
 
 <ul>
-	<li><a id="html-link" href="<?php echo URL::site('ajax/html')?>">HTML</a></li>
-	<li><a id="xml-link" href="<?php echo URL::site('ajax/xml')?>">XML</a></li>
-	<li><a id="json-link" href="<?php echo URL::site('ajax/json')?>">JSON</a></li>
+	<li><a id="html-link" href="<?php echo URL::site('general/ajax_html')?>">HTML</a></li>
+	<li><a id="xml-link" href="<?php echo URL::site('general/ajax_xml')?>">XML</a></li>
+	<li><a id="json-link" href="<?php echo URL::site('general/ajax_json')?>">JSON</a></li>
 </ul>
 
 <div id="example" class="helper-hidden" style="border:1px solid #eee;padding: 1em;margin:1em;">
