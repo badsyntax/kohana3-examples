@@ -7,12 +7,6 @@
 <?= Form::open()?>
 	<fieldset>
 
-		<?php if ($message_sent) {?>
-			<p class="form-success">
-				Message successfully sent!
-			</p>
-		<?php }?>
-
 		<div class="field">
 			<label for="field-name">
 				Name

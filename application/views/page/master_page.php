@@ -16,6 +16,9 @@
 	<?php echo View::factory('page/fragments/header') ?>
 
 	<div id="content">	
+	
+		<?php echo Message::render() ?>
+
 		<?php echo $content ?>
 	</div>
 
