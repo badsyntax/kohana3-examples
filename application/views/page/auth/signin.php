@@ -4,9 +4,11 @@
 		<?php echo Form::open()?>
 			<fieldset>
 
+				<?php echo Form::hidden('return_to', $return_to)?>
+
 				<p><a href="<?php echo URL::site('auth/signup')?>">Sign up</a> for a new account.</p>
 
-				<?php if (isset($errors)) {?>
+				<?php if ($errors) {?>
 					<p>Errors:</p>
 					<ul class="errors">
 					<?php foreach($errors as $field => $error){?>
@@ -36,9 +38,7 @@
 
 				<?php echo Form::submit('signin', 'Sign in', array('class' => 'button', 'style' => 'float:left;margin-right:1em'))?>
 					
-				<a href="<?php echo URL::site('auth/reset_password')?>" style="float: left;margin-top:.4em;">
-					<small>Forgot username or password?</small>
-				</a>
+				<?php echo HTML::anchor($urls['reset_pass'], 'Forgot username or password?', array('style' => 'float: left;margin-top:.8em;font-size:.8em'));?>
 
 			</fieldset> 
 		<?php echo Form::close()?>
@@ -50,29 +50,16 @@
 			<fieldset>
 
 				<p>
-					<a class="button twitter" href="<?php echo URL::site('oauth/twitter/signin')?>">
-						<span>Sign in with Twitter</span>
-					</a>
+					<?php echo HTML::anchor($urls['twitter'], '<span>Sign in with Twitter</span>', array('class' => 'button twitter'))?>
 				</p>
 				<p>
-					<a class="button google" href="<?php echo URL::site('openid/signin?openid_identity=https://www.google.com/accounts/o8/id')?>">
-						<span>Sign in with Google</span>
-					</a>
+					<?php echo HTML::anchor($urls['google'], '<span>Sign in with Google</span>', array('class' => 'button google'))?>
 				</p>
 				<p>
-					<a class="button yahoo" href="<?php echo URL::site('openid/signin?openid_identity=https://me.yahoo.com')?>">
-						<span>Sign in with Yahoo</span>
-					</a>
+					<?php echo HTML::anchor($urls['yahoo'], '<span>Sign in with Yahoo</span>', array('class' => 'button yahoo'))?>
 				</p>
 				<p class="last">
-					<a class="button openid" href="<?php echo URL::site('openid/signin')?>">
-						<span>Sign in with OpenID</span>
-					</a>
-				</p>
-				<p class="helper-hidden">
-					<a class="button facebook" href="<?php echo URL::site('oauth/facebook/signin')?>">
-						<span>Sign in with Facebook</span>
-					</a>
+					<?php echo HTML::anchor($urls['openid'], '<span>Sign in with OpenID</span>', array('class' => 'button openid'))?>
 				</p>
 			</fieldset>
 		</form>

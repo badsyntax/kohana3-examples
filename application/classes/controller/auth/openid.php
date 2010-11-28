@@ -18,9 +18,14 @@ class Controller_Auth_OpenID extends Controller_Base {
 	{
 		$this->template->title = __('OpenID sign in');
 		$this->template->content = View::factory('page/auth/openid/signin')
-			->bind('errors', $errors);
+			->bind('errors', $errors)
+			->bind('return_to', $return_to);
 
-		@$_REQUEST['openid_identity'] AND $_POST['openid_identity'] = $_REQUEST['openid_identity'];
+		// Get the return page URI, default to home
+		$return_to = Arr::get($_REQUEST, 'return_to', '');
+
+		// If openid_identity variable exists in the request, then add it to POST
+		Arr::get($_REQUEST, 'openid_identity', FALSE) AND $_POST['openid_identity'] = Arr::get($_REQUEST, 'openid_identity');
 
 		$data = Validate::factory($_POST)
 			->filter('openid_identity', 'trim')
@@ -63,13 +68,16 @@ class Controller_Auth_OpenID extends Controller_Base {
 			$auth_request->addExtension($pape_request);
 		}
 
+		// Build the redirect URL with the return page included
+		$redirect_url = URL::site('openid/finish?return_to=' . Arr::get($_REQUEST, 'return_to', ''), TRUE);
+
 		// Redirect the user to the OpenID server for authentication.
 		// Store the token for this authentication so we can verify the response.
 
 		// For OpenID 1, send a redirect.  For OpenID 2, use a Javascript form to send a POST request to the server.
 		if ($auth_request->shouldSendRedirect()) {
 
-			$redirect_url = $auth_request->redirectURL(URL::site(NULL, TRUE), URL::site('openid/finish', TRUE));
+			$redirect_url = $auth_request->redirectURL(URL::base(TRUE, TRUE), $redirect_url);
 
 			if (Auth_OpenID::isFailure($redirect_url)) {
 
@@ -79,13 +87,13 @@ class Controller_Auth_OpenID extends Controller_Base {
 			$this->request->redirect($redirect_url);
 
 		} else {
-			
+
 			// the OpenID library will return a full html document
 			// Auth_OpenID::autoSubmitHTML will wrap the form in body and html tags
 			// see: mobules/openid/vendor/Auth/OpenID/Consumer.php
 			$form_html = $auth_request->htmlMarkup(
-				URL::site(NULL, TRUE),
-				URL::site('openid/finish', TRUE),
+				URL::base(TRUE, TRUE),
+				$redirect_url,
 				false,
 				array('id' => 'openid_message')
 			);
@@ -105,13 +113,17 @@ class Controller_Auth_OpenID extends Controller_Base {
 
 	public function action_finish(){
 
-		$openid = @$_REQUEST['openid_identity'];
-		
+		// Get the OpenID identity
+		$openid = Arr::get($_REQUEST, 'openid_identity');
+
+		// Get the return page URI, default to home
+		$return_to = Arr::get($_REQUEST, 'return_to', '');
+
 		$store = new Auth_OpenID_FileStore($this->store_path);
 
 		$consumer = new Auth_OpenID_Consumer($store);
 
-		$response = $consumer->complete(URL::site('openid/finish', TRUE));
+		$response = $consumer->complete(URL::site($this->request->uri, TRUE));
 
 		if ($response->status == Auth_OpenID_CANCEL) {
 
@@ -129,7 +141,7 @@ class Controller_Auth_OpenID extends Controller_Base {
 
 			Auth::instance()->force_login($user);
 
-			$this->request->redirect('');
+			$this->request->redirect($return_to);
 		}
 	}
 

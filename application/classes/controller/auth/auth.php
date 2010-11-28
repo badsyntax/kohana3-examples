@@ -12,14 +12,29 @@ class Controller_Auth_Auth extends Controller_Base {
 	public function action_signin()
 	{
 		// Redirect if user is logged in
-		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
+		Auth::instance()->logged_in() AND Request::instance()->redirect('');
 
+		// Set template vars
 		$this->template->title = __('Sign in');
 		$this->template->content = View::factory('page/auth/signin' . ($this->request->is_mobile ? '_mobile' : ''))
-			->bind('errors', $errors);
+			->bind('errors', $errors)
+			->bind('return_to', $return_to)
+			->bind('urls', $urls);
+	
+		// Get the return page URI, default to home
+		$return_to = Arr::get($_REQUEST, 'return_to', '');
 
-		// If successfull login then redirect to home page
-		ORM::factory('user')->login($_POST) AND Request::instance()->redirect('');
+		// Build the signin URLs
+		$urls = array(
+			'twitter'	=> "/oauth/twitter/signin?return_to={$return_to}",
+			'google'	=> "/openid/signin?openid_identity=https://www.google.com/accounts/o8/id&return_to={$return_to}",
+			'yahoo'		=> "/openid/signin?openid_identity=https://me.yahoo.com&return_to={$return_to}",
+			'openid'	=> "/openid/signin?return_to={$return_to}",
+			'reset_pass'	=> "/auth/reset_password?return_to={$return_to}"
+		);
+
+		// If successfull login then redirect
+		ORM::factory('user')->login($_POST) AND Request::instance()->redirect($return_to);
 
 		$errors = $_POST->errors('signin');
 
@@ -31,6 +46,7 @@ class Controller_Auth_Auth extends Controller_Base {
 		// Redirect if user is logged in
 		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
 
+		// Set template vars
 		$this->template->title = __('Sign up'); 
 		$this->template->content = View::factory('page/auth/signup')
 			->bind('errors', $errors);
@@ -68,7 +84,7 @@ class Controller_Auth_Auth extends Controller_Base {
 		// Try send reset passwork link in email
 		if ( ORM::factory('user')->reset_password($_POST))
 		{
-			// Store the result in session
+			// Store the result in session FIXME use messages class
 			Session::instance()->set('message_sent', TRUE);
 
 			// Redirect user to prevent refresh on POST request

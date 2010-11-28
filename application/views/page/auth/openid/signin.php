@@ -16,6 +16,8 @@
 	<?php echo Form::open()?>
 		<fieldset>
 
+			<?php echo Form::hidden('return_to', $return_to)?>
+
 			<?php if ($errors) {?>
 				<p>Errors:</p>
 				<ul class="errors">
