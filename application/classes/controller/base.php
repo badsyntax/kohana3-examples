@@ -62,7 +62,10 @@ abstract class Controller_Base extends Controller_Template {
 		// If this page is secured and the user is not logged in (or doesn't match role), then redirect to the signin page
 		if ($this->auth_required !== FALSE && Auth::instance()->logged_in($this->auth_required) === FALSE)
 		{
-			$this->request->redirect('auth/signin');
+			// Set the return path so user is redirect back to this page after successful sign in
+			$uri = 'auth/signin?return_to=' . $this->request->uri;
+
+			$this->request->redirect($uri);
 		}
 	}
 
