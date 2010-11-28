@@ -6,17 +6,17 @@ class Controller_Auth_Auth extends Controller_Base {
 
 	public function action_index()
 	{
-		Request::instance()->redirect('');
+		$this->request->redirect('');
 	}
  
 	public function action_signin()
 	{
 		// Redirect if user is logged in
-		Auth::instance()->logged_in() AND Request::instance()->redirect('');
+		Auth::instance()->logged_in() AND $this->request->redirect('');
 
 		// Set template vars
 		$this->template->title = __('Sign in');
-		$this->template->content = View::factory('page/auth/signin' . ($this->request->is_mobile ? '_mobile' : ''))
+		$this->template->content = View::factory('page/auth/signin' . (Request::$is_mobile ? '_mobile' : ''))
 			->bind('errors', $errors)
 			->bind('return_to', $return_to)
 			->bind('urls', $urls);
@@ -34,7 +34,7 @@ class Controller_Auth_Auth extends Controller_Base {
 		);
 
 		// If successfull login then redirect
-		ORM::factory('user')->login($_POST) AND Request::instance()->redirect($return_to);
+		ORM::factory('user')->login($_POST) AND $this->request->redirect($return_to);
 
 		$errors = $_POST->errors('signin');
 
@@ -44,7 +44,7 @@ class Controller_Auth_Auth extends Controller_Base {
 	public function action_signup()
 	{
 		// Redirect if user is logged in
-		Auth::instance()->logged_in() AND Request::instance()->redirect('');		
+		Auth::instance()->logged_in() AND $this->request->redirect('');		
 
 		// Set template vars
 		$this->template->title = __('Sign up'); 
@@ -52,7 +52,7 @@ class Controller_Auth_Auth extends Controller_Base {
 			->bind('errors', $errors);
 
 		// If successful signup then redirect to login page
-		ORM::factory('user')->signup($_POST) AND Request::instance()->redirect('');			
+		ORM::factory('user')->signup($_POST) AND $this->request->redirect('');			
 	 
 		$errors = $_POST->errors('signup');
 
@@ -62,14 +62,14 @@ class Controller_Auth_Auth extends Controller_Base {
 	public function action_profile()
 	{
 		// Redirect if user is logged in
-		!Auth::instance()->logged_in() AND Request::instance()->redirect('auth/signin');
+		!Auth::instance()->logged_in() AND $this->request->redirect('auth/signin');
 		
 		$this->template->title = __('Profile');
 		$this->template->content = View::factory('page/auth/profile')
 			->bind('errors', $errors);
 
 		// Update logged in user details, if successfull then redirect to profile page
-		Auth::instance()->get_user()->update($_POST) AND Request::instance()->redirect('auth/profile');
+		Auth::instance()->get_user()->update($_POST) AND $this->request->redirect('auth/profile');
 
 		$errors = $_POST->errors('profile');
 	}
@@ -117,7 +117,7 @@ class Controller_Auth_Auth extends Controller_Base {
 	{
 		Auth::instance()->logout();
 
-		Request::instance()->redirect('');		
+		$this->request->redirect('');		
 	}
 
 	public function action_service()

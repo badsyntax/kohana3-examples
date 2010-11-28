@@ -1,4 +1,4 @@
-<?php if (!Request::instance()->is_mobile){?>
+<?php if (!Request::$is_mobile){?>
 <p>
 	This simple contact controller demonstrates how to use the Validation class and  
 	SwiftMailer to send email. The contact view demonstrates how to use the Form helper and error handling.

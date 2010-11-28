@@ -2,7 +2,7 @@
 	<?php echo __('Hello, world!')?>
 </p>
 
-<?php if (Kohana::$environment === Kohana::PRODUCTION AND !Request::instance()->is_mobile){?>
+<?php if (Kohana::$environment === Kohana::PRODUCTION AND !Request::$is_mobile){?>
 <p>
 	This site is in '<em>production</em>' mode, meaning the stylesheet and javascript are
 	minified and cached, and errors and exceptions are supressed. Global exception handling
@@ -14,7 +14,7 @@
 	creates new caches based on filetime, so you don't have to worry about re-caching these files.
 	View the source to see an example.
 </p>
-<?php } elseif (Kohana::$environment === Kohana::DEVELOPMENT AND !Request::instance()->is_mobile){?>
+<?php } elseif (Kohana::$environment === Kohana::DEVELOPMENT AND !Request::$is_mobile){?>
 <p>
 	This site is in '<em>development</em>' mode, meaning the stylesheet and javascript are
 	unminified and errors and exceptions are displayed to the user.
