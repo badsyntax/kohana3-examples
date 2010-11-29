@@ -6,7 +6,6 @@ class Controller_Contact extends Controller_Base {
 	{
 		$this->template->title = __('Contact');
 		$this->template->content = View::factory('page/contact')
-			->bind('message_sent', $message_sent)
 			->bind('errors', $errors);
 		
 		$recipient = array(
@@ -36,18 +35,16 @@ class Controller_Contact extends Controller_Base {
 				->setTo($recipient)
 				->addPart($data['message'], 'text/plain');
 
-			Swift_Mailer::newInstance($transport)
-				->send($message);
+			Swift_Mailer::newInstance($transport)->send($message);
 
-			Session::instance()->set('message_sent', TRUE);
+			Message::set(Message::SUCCESS, __('Message successfully sent!'));
 				
-			Request::instance()->redirect(Request::instance()->uri);
+			$this->request->redirect($this->request->uri);
 		}
 
-		$_POST = $data->as_array();
-
-		$message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
-
 		$errors = $data->errors('contact');
+		
+		$_POST = $data->as_array();
 	}
-}
+
+} // End Controller_Contact
