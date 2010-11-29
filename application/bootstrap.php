@@ -88,7 +88,7 @@ Kohana::$config->attach(new Kohana_Config_File);
  */
 Kohana::modules(array(
 	'admin'		=> MODPATH.'admin',
-	'common'	=> MODPATH.'common',
+	'base'		=> MODPATH.'base',
 	'database'	=> MODPATH.'database',	// Database access
 	'orm'		=> MODPATH.'orm',	// Object Relationship Mapping
 	'auth'		=> MODPATH.'auth',	// Basic authentication
