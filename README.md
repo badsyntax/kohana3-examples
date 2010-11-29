@@ -1,4 +1,4 @@
-These Kohana example files demonstrate basic Kohana 3 functionality, including:
+These example files demonstrate basic [Kohana 3](http://kohanaframework.org/) functionality, including:
 
 * Base template controller
 * View structure
@@ -16,19 +16,24 @@ These Kohana example files demonstrate basic Kohana 3 functionality, including:
 * AJAX examples (html, xml + json)
 * Mobile site using [jQuery Mobile](http://jquerymobile.com/)
 
+Have a look around the repository to see the example code.
+
 *Installation:*
 
 * View the [wiki page](https://github.com/badsyntax/kohana3-examples/wiki/Installation) for installation instructions.
 
 *Purpose of these files:*
 
-* I'm hoping these files will be useful to those just starting out with Kohana3
+* So I can learn KO3
+* So others can learn KO3
 * As a site 'boilerplate' 
 
 *Disclaimer:*
 
 Some of the code has been collated from the resources listed in the [DOCS](https://github.com/badsyntax/kohana3-examples/blob/master/DOCS.md). I've
 referenced these projects in the example files.
+
+This respository is constantly changing as I learn better methods and approaches, I don't indent on tagging anytime soon!
 
 Demo:
 
