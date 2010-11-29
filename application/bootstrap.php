@@ -87,6 +87,8 @@ Kohana::$config->attach(new Kohana_Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
+	'admin'		=> MODPATH.'admin',
+	'common'	=> MODPATH.'common',
 	'database'	=> MODPATH.'database',	// Database access
 	'orm'		=> MODPATH.'orm',	// Object Relationship Mapping
 	'auth'		=> MODPATH.'auth',	// Basic authentication
@@ -97,18 +99,16 @@ Kohana::modules(array(
 	'cache'		=> MODPATH.'cache',	// Caching with multiple backends
 	'userguide'	=> MODPATH.'userguide', // User guide and API documentation
 	'pagination'	=> MODPATH.'pagination',// Paging of results
-	'admin'		=> MODPATH.'admin',
 	'message'	=> MODPATH.'message'
 	// 'codebench'	=> MODPATH.'codebench', // Benchmarking tool
 	// 'image'	=> MODPATH.'image',	// Image manipulation
 	// 'unittest'	=> MODPATH.'unittest',	// Unit testing
-	));
+));
 
 /**
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
-
 if ( !Route::cache()){
 
 	/* Auth routes */
@@ -131,12 +131,12 @@ if ( !Route::cache()){
 		));
 
 	/* Error routes */
-	Route::set('404', '<error>', array('error' => '404'))
+	Route::set('403', '<error>', array('error' => '403'))
 		->defaults(array(
 			'controller' => 'error',
 			'action' => 'index'
 		));
-	Route::set('403', '<error>', array('error' => '403'))
+	Route::set('404', '<error>', array('error' => '404'))
 		->defaults(array(
 			'controller' => 'error',
 			'action' => 'index'
@@ -169,7 +169,6 @@ if ( ! defined('SUPPRESS_REQUEST'))
 	try {
 		 // Attempt to execute the response
 		 $request->execute();
-
 	}
 
 	/* Catch errors */
