@@ -43,3 +43,6 @@
 [submodule "modules/message"]
 	path = modules/message
 	url = https://github.com/GeertDD/kohana-message.git
+[submodule "modules/admin"]
+	path = modules/admin
+	url = git@github.com:badsyntax/kohana3-admin.git
