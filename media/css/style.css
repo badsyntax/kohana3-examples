@@ -45,6 +45,8 @@ table tfoot td { font-size: .9em; color: #666; }
 td, th { padding: .5em; }
 .action-bar { margin-bottom: .6em; border: 1px solid transparent; }
 .action-bar h1 { margin: 0; line-height: 1.5em;}
+#messages { border:1px solid #aaa; padding: .5em; margin-bottom: .8em;}
+#messages ul, #messages p { margin-bottom: 0; padding-bottom: 0; }
 .grid-50 .unit { float: right; width: 48%; }
 .grid-50 .first { float: left; } 
 .helper-center { text-align: center; }
