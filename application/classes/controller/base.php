@@ -8,26 +8,23 @@ abstract class Controller_Base extends Controller_Template {
 
 	public function before()
 	{
-		// Store the auth intance 
-		$this->auth = Auth::instance();
-
 		// Secure this controller
 		$this->authenticate();
 		
-		// Detect mobile environment from HTTP HOST
-		Request::$is_mobile = !!strstr(URL::base(TRUE, TRUE), '//mobile.');
-
 		// Set the mobile master template
 		Request::$is_mobile AND $this->template .= '_mobile';
 
 		parent::before();
 
+		// Set default template vars
 		$this->template->title =
 		$this->template->content = '';
 
 		// Set the stylesheet and javascript paths
-		$this->template->styles = Kohana::config('assets.' . (Request::$is_mobile ? 'mobile' : 'default') . '.style');
-		$this->template->scripts = Kohana::config('assets.' . (Request::$is_mobile ? 'mobile' : 'default') . '.script');
+		$assets = Request::$is_mobile ? 'assets.mobile' : 'assets.default';
+
+		$this->template->styles = Kohana::config("{$assets}.style");
+		$this->template->scripts = Kohana::config("{$assets}.script");
 
 		// If the media module is enabled then run the scripts through the compressors
 		if (class_exists('Media')) 
