@@ -22,7 +22,7 @@
 
 <p>This example demonstrates using back-end form validation with errors displayed via AJAX. If Javascript is disabled the form is still fully functional.</p>
 
-<?= Form::open(NULL, array('id' => 'ajax-form'))?>
+<?php echo Form::open(NULL, array('id' => 'ajax-form'))?>
 	<fieldset>
 
 		<p class="form-success helper-hidden"><?php echo isset($message) ? $message : ''?></p>
@@ -53,7 +53,7 @@
 
 		<?php echo Form::submit('submit', 'Submit', array('class' => 'button'))?>
 	</fieldset>
-<?= Form::close()?>
+<?php echo Form::close()?>
 
 <p>View the source of the page to view the Javascript used for these examples.</p>
 

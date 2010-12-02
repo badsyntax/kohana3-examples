@@ -4,7 +4,7 @@
 	SwiftMailer to send email. The contact view demonstrates how to use the Form helper and error handling.
 </p>
 <?php }?>
-<?= Form::open()?>
+<?php echo Form::open()?>
 	<fieldset>
 
 		<div class="field">
@@ -45,4 +45,4 @@
 
 		<?php echo Form::submit('submit', 'Submit', array('class' => 'button'))?>
 	</fieldset>
-<?= Form::close()?>
+<?php echo Form::close()?>
