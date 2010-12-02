@@ -6,6 +6,15 @@
 
 class Model_Base_User extends Model_Auth_User {
 
+	public function login(array & $array, $redirect = FALSE)
+	{
+
+		if (!isset($array['username'])) $array['username'] = '';
+
+		return parent::login($array, $redirect);
+	}
+
+
 	public function signup(& $data)
 	{
 		$data = Validate::factory($data)
