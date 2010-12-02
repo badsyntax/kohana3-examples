@@ -111,11 +111,11 @@ Kohana::modules(array(
  */
 if ( !Route::cache()){
 
-	/* Auth routes */
-	Route::set('auth', 'auth(/<action>)(/<id>)')
+	/* User & Auth routes */
+	Route::set('user', 'user(/<action>)(/<id>)')
 		->defaults(array(
 			'directory' => 'auth',
-			'controller' => 'auth',
+			'controller' => 'user',
 			'action' => 'index'
 		));
 	Route::set('auth-openid', 'openid(/<action>)(/<id>)')
