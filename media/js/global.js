@@ -35,11 +35,13 @@
 			anchor.find('span').toggle();
 		});
 	}
-		
+
 	// document ready
 	$(function(){
 
 		profiler();
+	
+		$('#messages').fadeIn('fast');
 	});
 
 })(this.jQuery, document);
