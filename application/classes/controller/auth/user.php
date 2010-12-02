@@ -1,8 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * @auth controller
+ * @User controller
  */
-class Controller_Auth_Auth extends Controller_Base {
+class Controller_Auth_User extends Controller_Base {
 
 	public function action_index()
 	{
@@ -30,15 +30,21 @@ class Controller_Auth_Auth extends Controller_Base {
 			'google'	=> "/openid/signin?openid_identity=https://www.google.com/accounts/o8/id&return_to={$return_to}",
 			'yahoo'		=> "/openid/signin?openid_identity=https://me.yahoo.com&return_to={$return_to}",
 			'openid'	=> "/openid/signin?return_to={$return_to}",
-			'reset_pass'	=> "/auth/reset_password?return_to={$return_to}"
+			'reset_pass'	=> "/user/reset_password?return_to={$return_to}"
 		);
 
-		// If successfull login then redirect
-		ORM::factory('user')->login($_POST) AND $this->request->redirect($return_to);
+		if ($_POST){
+		
+			// If successfull login then redirect
+			if (ORM::factory('user')->login($_POST)){
 
-		$errors = $_POST->errors('signin');
-
-		$_POST = $_POST->as_array();
+				Message::set(Message::SUCCESS, __($_POST['username'].' successfully signed in.'));
+			
+				$this->request->redirect($return_to);
+			}
+		
+			$errors = $_POST->errors('signin');
+		}
 	}
 	
 	public function action_signup()
@@ -62,14 +68,14 @@ class Controller_Auth_Auth extends Controller_Base {
 	public function action_profile()
 	{
 		// Redirect if user is logged in
-		!Auth::instance()->logged_in() AND $this->request->redirect('auth/signin');
+		!Auth::instance()->logged_in() AND $this->request->redirect('user/signin');
 		
 		$this->template->title = __('Profile');
 		$this->template->content = View::factory('page/auth/profile')
 			->bind('errors', $errors);
 
 		// Update logged in user details, if successfull then redirect to profile page
-		Auth::instance()->get_user()->update($_POST) AND $this->request->redirect('auth/profile');
+		Auth::instance()->get_user()->update($_POST) AND $this->request->redirect('user/profile');
 
 		$errors = $_POST->errors('profile');
 	}
