@@ -20,7 +20,7 @@
 				<div class="field">
 					<?php echo 
 						Form::label('username', 'Username'), 
-						Form::input('username', $_REQUEST['username'], array('id'=>'username'))
+						Form::input('username', @$_REQUEST['username'], array('id'=>'username'))
 					?>
 				</div>
 				<div class="field">
