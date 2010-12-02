@@ -46,3 +46,6 @@
 [submodule "modules/openid/vendor"]
 	path = modules/openid/vendor
 	url = https://github.com/openid/php-openid.git
+[submodule "modules/base"]
+	path = modules/base
+	url = git@github.com:badsyntax/kohana3-base.git
