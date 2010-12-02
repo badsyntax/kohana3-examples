@@ -11,13 +11,13 @@ input, textarea { margin: 0; display: block; }
 .form-success { color: #458B00; }
 form .field { margin-bottom: .8em; }
 form .field.checkbox input { float: left; margin-right: .5em}
-fieldset { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: .8em 1.2em; border: 1px solid #dfdfdf;	background: #fff; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#fdfdfd'); background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fdfdfd)); background: -moz-linear-gradient(top,  #fff,  #fdfdfd); }
+fieldset, #messages { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; padding: .8em 1.2em; border: 1px solid #dfdfdf;	background: #fff; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#fdfdfd'); background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fdfdfd)); background: -moz-linear-gradient(top,  #fff,  #fdfdfd); }
 legend { color: #888; display: none; }
 input[type=text], input[type=email], input[type=url], input[type=password] { width: 15em; }
 input[type=text], input[type=email], input[type=url], input[type=password], textarea { padding:.45em .4em .3em .3em; border: 1px solid #aaa; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;	-moz-box-shadow: inset 2px 2px 1px #ddd; -webkit-box-shadow: inset 2px 2px 1px #ddd; box-shadow: inset 2px 2px 1px #ddd; }
 input[type=text]:focus, input[type=password]:focus, textarea:focus { border-color: #222; }
-input.error-field { border-color: #FF0000;}
-.label-error { color: #FF0000; }
+input.error-field { border-color: #BB0000;}
+.label-error { color: #BB0000; }
 .button, .button:visited { display: inline-block; text-decoration: none; padding: .5em; cursor: pointer; border: 1px solid #bbb; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: #bbb 0 1px 2px; -webkit-box-shadow: #bbb 0 1px 2px; box-shadow: #bbb 0 1px 2px; color: #333; -moz-text-shadow: 1px 1px 0 #FFFFFF; -webkit-text-shadow: 1px 1px 0 #FFFFFF; text-shadow: 1px 1px 0 #FFFFFF; background: #ffffff; background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* firefox */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6)); /* webkit */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* ie */	}
 .button:active { filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#eeeeee'); background: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#eee)); background: -moz-linear-gradient(top,  #ddd,  #eee); }
 .button:hover { color: #000; border-color: #888; outline: none; } 
@@ -31,12 +31,14 @@ input.error-field { border-color: #FF0000;}
 .button.yahoo span { background: url(/media/img/yahoo-icon.png) no-repeat 4px center;}
 .checkbox input { float: left; margin-right: .5em;}
 .oauth-signin p.last { margin: 0; }
-header, #content, footer { width: 600px; margin: auto; text-align: left; }
+header, #content, footer { width: 720px; margin: auto; text-align: left; }
 header { margin: 2em auto 1.2em auto; }
 #content {  }
 nav { border-bottom: 1px solid #CCC; padding-bottom: 1em;}
+nav.second-level { border: 0; padding-top: 1em; padding-bottom: 0;}
 nav a { padding: 0 1em 0 0; }
 nav a.helper-right { float: right; padding: 0;}
+nav a.selected { font-weight: bold; }
 #profiler-container { display: none; margin-top: 1em; padding: 1em 0; font-size: .9em; color: #AAA; border-top: 1px solid #CCC; }
 table { border-collapse:collapse; width: 100%; }
 table,th, td { border: 1px solid #dfdfdf; }
@@ -47,10 +49,17 @@ table tfoot td { font-size: .9em; color: #666; }
 td, th { padding: .5em; }
 .action-bar { margin-bottom: .6em; border: 1px solid transparent; }
 .action-bar h1 { margin: 0; line-height: 1.5em;}
-#messages { border:1px solid #aaa; padding: .5em; margin-bottom: .8em;}
-#messages ul, #messages p { margin-bottom: 0; padding-bottom: 0; }
+#messages { padding: .5em; margin-bottom: .8em; display: none; }
+#messages ul, #messages p { margin: 0; padding: 0; }
+#messages li { list-style: none; padding-left: 22px; }
+#messages .success { background: url(/media/img/tick-circle-frame.png) no-repeat 0 0; }
+#messages .error { background: url(/media/img/exclamation-red-frame.png) no-repeat 0 0; }
+
 .grid-50 .unit { float: right; width: 48%; }
 .grid-50 .first { float: left; } 
 .helper-center { text-align: center; }
 .helper-right { float: right; }
 .helper-hidden { display: none; }
+
+/* ADMIN */
+.admin table.crud-list input.checkbox { float: left; }
