@@ -140,6 +140,8 @@ class Controller_Auth_OpenID extends Controller_Base {
 			$user = ORM::factory('user')->save_openid($openid);
 
 			Auth::instance()->force_login($user);
+			
+			Message::set(Message::SUCCESS, __($user->username.' successfully signed in.'));
 
 			$this->request->redirect($return_to);
 		}
