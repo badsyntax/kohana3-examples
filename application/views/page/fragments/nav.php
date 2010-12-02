@@ -3,13 +3,13 @@
 	
 		<?php if (Auth::instance()->logged_in()) {?>
 			
-			<a href="<?php echo URL::site('auth/profile')?>">Profile</a>
-			<a href="<?php echo URL::site('auth/signout')?>">Sign out</a>
+			<a href="<?php echo URL::site('user/profile')?>">Profile</a>
+			<a href="<?php echo URL::site('user/signout')?>">Sign out</a>
 
 		<?php } else {?>
 
-			<a href="<?php echo URL::site('auth/signin')?>">Sign in</a>
-			<a href="<?php echo URL::site('auth/signup')?>">Sign up</a>
+			<a href="<?php echo URL::site('user/signin')?>">Sign in</a>
+			<a href="<?php echo URL::site('user/signup')?>">Sign up</a>
 		<?php } ?>
 
 		<?php if (Kohana::$environment === Kohana::DEVELOPMENT){?>
