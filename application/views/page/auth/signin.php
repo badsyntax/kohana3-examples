@@ -6,10 +6,9 @@
 
 				<?php echo Form::hidden('return_to', $return_to)?>
 
-				<p><a href="<?php echo URL::site('auth/signup')?>">Sign up</a> for a new account.</p>
+				<p><a href="<?php echo URL::site('user/signup')?>">Sign up</a> for a new account.</p>
 
 				<?php if ($errors) {?>
-					<p>Errors:</p>
 					<ul class="errors">
 					<?php foreach($errors as $field => $error){?>
 						<li><?php echo $error ?></li>
