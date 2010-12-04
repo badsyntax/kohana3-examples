@@ -8,24 +8,16 @@
 
 				<p><a href="<?php echo URL::site('user/signup')?>">Sign up</a> for a new account.</p>
 
-				<?php if ($errors) {?>
-					<ul class="errors">
-					<?php foreach($errors as $field => $error){?>
-						<li><?php echo $error ?></li>
-					<?php }?>
-					</ul>
-				<?php }?>
-
 				<div class="field">
 					<?php echo 
-						Form::label('username', 'Username'), 
-						Form::input('username', @$_REQUEST['username'], array('id'=>'username'))
+						Form::label('username', 'Username', NULL, $errors), 
+						Form::input('username', @$_REQUEST['username'], NULL, $errors)
 					?>
 				</div>
 				<div class="field">
 					<?php echo 
-						Form::label('password', 'Password'), 
-						Form::password('password', NULL, array('id' => 'password')) 
+						Form::label('password', 'Password', NULL, $errors), 
+						Form::password('password', NULL, NULL, $errors) 
 					?>
 				</div>
 				<div class="field checkbox">

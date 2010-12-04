@@ -1,32 +1,24 @@
 <?php echo Form::open()?>
 	<fieldset>
-		
-		<?php if ($errors) {?>
-			<ul class="errors">
-			<?php foreach($errors as $field => $error){?>
-				<li><?php echo $error ?></li>
-			<?php }?>
-			</ul>
-		<?php }?>
-
 		<div class="field">
 			<?php echo 
-				Form::label('email', 'Email'),
+				Form::label('email', 'Email', NULL, $errors),
 				Form::input('email', 
 					$_POST['email'] ? $_POST['email'] : Auth::instance()->get_user()->email, 
-					array('type' => 'email', 'id' => 'email'))
+					array('type' => 'email'),
+					$errors)
 			?>
 		</div>
 		<div class="field">
 			<?php echo 
-				Form::label('password', 'Password'),
-				Form::password('password', NULL, array('id' => 'password'))
+				Form::label('password', 'Password', NULL, $errors),
+				Form::password('password', NULL, NULL, $errors)
 			?>
 		</div>
 		<div class="field">
 			<?php echo 
-				Form::label('password_confirm', 'Confirm password'),
-				Form::password('password_confirm', NULL, array('id' => 'password_confirm'))
+				Form::label('password_confirm', 'Confirm password', NULL, $errors),
+				Form::password('password_confirm', NULL, NULL, $errors)
 			?>
 		</div>
 

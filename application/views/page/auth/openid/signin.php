@@ -18,19 +18,10 @@
 
 			<?php echo Form::hidden('return_to', $return_to)?>
 
-			<?php if ($errors) {?>
-				<p>Errors:</p>
-				<ul class="errors">
-				<?php foreach($errors as $field => $error){?>
-					<li><?php echo $error ?></li>
-				<?php }?>
-				</ul>
-			<?php }?>
-
 			<div class="field">
 				<?php echo
-					Form::label('openid_identity', 'Enter your OpenID URL') .
-					Form::input('openid_identity', $_POST['openid_identity'], array('type' => 'url', 'id'=>'openid_identity'))
+					Form::label('openid_identity', 'Enter your OpenID URL', NULL, $errors) .
+					Form::input('openid_identity', $_POST['openid_identity'], array('type' => 'url'), $errors)
 				?>
 			</div>
 

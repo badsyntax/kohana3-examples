@@ -8,39 +8,23 @@
 	<fieldset>
 
 		<div class="field">
-			<label for="field-name">
-				Name
-				<?php if (isset($errors['name'])){?>
-					<span class="form-error">
-						<?php echo $errors['name']?>
-					</span>
-				<?php }?>
-			</label>
-			<?php echo Form::input('name', $_POST['name'], array('id' => 'field-name'))?>
+			<?php echo 
+				Form::label('name', 'Name', NULL, $errors) .
+				Form::input('name', $_POST['name'], NULL, $errors)?>
 		</div>
 
 		<div class="field">
-			<label for="field-email">
-				Email
-				<?php if (isset($errors['email'])){?>
-					<span class="form-error">
-						<?php echo $errors['email']?>
-					</span>
-				<?php }?>
-			</label>
-			<?php echo Form::input('email', $_POST['email'], array('type' => 'email', 'id' => 'field-email'))?>
+			<?php echo 
+				Form::label('email', 'Email', NULL, $errors) .
+				Form::input('email', $_POST['email'], array('type' => 'email'), $errors)
+			?>
 		</div>
 
 		<div class="field">
-			<label for="field-message">
-				Message
-				<?php if (isset($errors['message'])){?>
-					<span class="form-error">
-						<?php echo $errors['message']?>
-					</span>
-				<?php }?>
-			</label>
-			<?php echo Form::textarea('message', $_POST['message'], array('id' => 'field-message'))?>
+			<?php echo
+				Form::label('field-message', 'Message', NULL, $errors) .
+				Form::textarea('message', $_POST['message'])
+			?>
 		</div>
 
 		<?php echo Form::submit('submit', 'Submit', array('class' => 'button'))?>
