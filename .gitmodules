@@ -49,3 +49,6 @@
 [submodule "modules/base"]
 	path = modules/base
 	url = git@github.com:badsyntax/kohana3-base.git
+[submodule "modules/console"]
+	path = modules/console
+	url = https://github.com/daveWid/console.git
