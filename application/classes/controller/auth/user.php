@@ -33,11 +33,11 @@ class Controller_Auth_User extends Controller_Base {
 			'reset_pass'	=> "/user/reset_password?return_to={$return_to}"
 		);
 
-		if ($_POST){
-		
+		if ($_POST)
+		{
 			// If successfull login then redirect
-			if (ORM::factory('user')->login($_POST)){
-
+			if (ORM::factory('user')->login($_POST))
+			{
 				Message::set(Message::SUCCESS, __($_POST['username'].' successfully signed in.'));
 			
 				$this->request->redirect($return_to);
@@ -59,8 +59,11 @@ class Controller_Auth_User extends Controller_Base {
 
 		// If successful signup then redirect to login page
 		ORM::factory('user')->signup($_POST) AND $this->request->redirect('');			
-	 
-		$errors = $_POST->errors('signup');
+
+		if ($errors = $_POST->errors('signup'))
+		{
+			 Message::set(Message::ERROR, __('Please correct the errors.'));
+		}
 
 		$_POST = $_POST->as_array();
 	}
@@ -77,7 +80,10 @@ class Controller_Auth_User extends Controller_Base {
 		// Update logged in user details, if successfull then redirect to profile page
 		Auth::instance()->get_user()->update($_POST) AND $this->request->redirect('user/profile');
 
-		$errors = $_POST->errors('profile');
+		if ($errors = $_POST->errors('profile'))
+		{
+			 Message::set(Message::ERROR, __('Please correct the errors.'));
+		}
 	}
 
 	public function action_reset_password()
@@ -100,7 +106,10 @@ class Controller_Auth_User extends Controller_Base {
 		// Get and delete the message_sent status from session
 		$message_sent = Session::instance()->get('message_sent', FALSE) AND Session::instance()->delete('message_sent');
 
-		$errors = $_POST->errors('reset_password');
+		if ($errors = $_POST->errors('reset_password'))
+		{
+			 Message::set(Message::ERROR, __('Please correct the errors.'));
+		}
 	}
 
 	public function action_confirm_reset_password()
@@ -116,7 +125,10 @@ class Controller_Auth_User extends Controller_Base {
 
 		ORM::factory('user', $id)->find()->confirm_reset_password($_POST, $token);
 
-		$errors = $_POST->errors('confirm_reset_password');
+		if ($errors = $_POST->errors('confirm_reset_password'))
+		{
+			Message::set(Message::ERROR, __('Please correct the errors.'));
+		}
 	}
 
 	public function action_signout()
