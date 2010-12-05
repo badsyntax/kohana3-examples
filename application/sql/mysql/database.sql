@@ -43,6 +43,19 @@ CREATE TABLE IF NOT EXISTS `user_tokens` (
   KEY `fk_user_id` (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `config` (
+  `id` int(11) NOT NULL auto_increment,
+  `group` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `value` text,
+  `default` text,
+  `rules` text NOT NULL,
+  `field_type` varchar(255) NOT NULL default 'text',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `group` (`group`,`name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
 ALTER TABLE `roles_users`
   ADD CONSTRAINT `roles_users_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `roles_users_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
