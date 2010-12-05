@@ -9,6 +9,29 @@ class Controller_Auth_OpenID extends Controller_Base {
 
         protected $store_path = '/tmp/_php_consumer_test';
 
+	public function before()
+	{
+		parent::before();
+		
+		// Ensure this script has permission to create the store path
+                if (!file_exists($this->store_path) && !@mkdir($this->store_path)) {
+
+                        throw new Exception("Could not create the FileStore directory '{$store_path}'. Please check the effective permissions.");
+                }
+
+		// Set the include path to the openid directory
+		ini_set('include_path', 'application/vendor/openid');
+
+		// Start the session
+		Session::instance();
+
+		// Load the OpenID lib
+		require Kohana::find_file('vendor', 'openid/Auth/OpenID/Consumer');
+		require Kohana::find_file('vendor', 'openid/Auth/OpenID/FileStore');
+		require Kohana::find_file('vendor', 'openid/Auth/OpenID/SReg');
+		require Kohana::find_file('vendor', 'openid/Auth/OpenID/PAPE');
+	}
+	
 	public function action_index()
 	{
 		$this->request->redirect('');
@@ -63,17 +86,13 @@ class Controller_Auth_OpenID extends Controller_Base {
 
 		$pape_request = new Auth_OpenID_PAPE_Request();
 
-		if ($pape_request) {
-
-			$auth_request->addExtension($pape_request);
-		}
+		$pape_request AND $auth_request->addExtension($pape_request);
 
 		// Build the redirect URL with the return page included
 		$redirect_url = URL::site('openid/finish?return_to=' . Arr::get($_REQUEST, 'return_to', ''), TRUE);
 
 		// Redirect the user to the OpenID server for authentication.
 		// Store the token for this authentication so we can verify the response.
-
 		// For OpenID 1, send a redirect.  For OpenID 2, use a Javascript form to send a POST request to the server.
 		if ($auth_request->shouldSendRedirect()) {
 
@@ -97,7 +116,6 @@ class Controller_Auth_OpenID extends Controller_Base {
 				false,
 				array('id' => 'openid_message')
 			);
-
 			// we just want the form HTML, so strip out the form 
 			$form_html = preg_replace('/^.*<html.*<form/im', '<form', $form_html);
 			$form_html = preg_replace('/<\/body>.*/im', '', $form_html);
