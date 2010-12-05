@@ -2,7 +2,7 @@
 <html lang="en" class="no-js <?php echo Kohana::$environment?>" dir="ltr">
 <head>
 	<meta charset="utf-8" />
-      	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title><?php echo $title ?></title>
 	<?php echo implode("\n\t", array_map('HTML::style', $styles)), "\n";?>
 	<?php echo implode("\n\t", array_map('HTML::script', $scripts)), "\n" ?>
@@ -25,7 +25,7 @@
 	<?php echo View::factory('page/fragments/footer') ?>
 
 	<?php if (Kohana::$environment === Kohana::DEVELOPMENT){?>
-		<div> {execution_time} - {memory_usage} </div>
+		<div class="benchmark"> {execution_time} - {memory_usage} </div>
 	<?php } else {?>
 		<!-- {execution_time} - {memory_usage} -->
 	<?php }?>
