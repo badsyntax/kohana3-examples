@@ -23,6 +23,11 @@
 	</div>
 
 	<?php echo View::factory('page/fragments/footer') ?>
-	<!-- {execution_time} - {memory_usage} -->
+
+	<?php if (Kohana::$environment === Kohana::DEVELOPMENT){?>
+		<div> {execution_time} - {memory_usage} </div>
+	<?php } else {?>
+		<!-- {execution_time} - {memory_usage} -->
+	<?php }?>
 </body>
 </html>
