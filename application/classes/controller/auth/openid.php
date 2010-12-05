@@ -2,7 +2,6 @@
 /*
  * This is a Kohana3 ported version of the php-openid example consumer files 
  * see https://github.com/openid/php-openid/tree/master/examples/consumer/
- * The openid module must be enabled for this controller to work.
  */
 
 class Controller_Auth_OpenID extends Controller_Base {
