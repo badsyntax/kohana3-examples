@@ -34,9 +34,6 @@
 [submodule "modules/cache"]
 	path = modules/cache
 	url = https://github.com/kohana/cache.git
-[submodule "modules/swiftmailer/vendor"]
-	path = modules/swiftmailer/vendor
-	url = https://github.com/swiftmailer/swiftmailer.git
 [submodule "modules/message"]
 	path = modules/message
 	url = https://github.com/GeertDD/kohana-message.git
@@ -49,3 +46,6 @@
 [submodule "application/vendor/openid"]
 	path = application/vendor/openid
 	url = https://github.com/openid/php-openid.git
+[submodule "application/vendor/swiftmailer"]
+	path = application/vendor/swiftmailer
+	url = https://github.com/swiftmailer/swiftmailer.git
