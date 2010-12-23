@@ -37,8 +37,8 @@ referenced these projects in the example files.
 *Please note*
 
 * This respository is constantly changing as I learn better methods and approaches, I don't indent on tagging anytime soon!
-* Most of the continuing functionality now exists in [kohana3-base][https://github.com/badsyntax/kohana3-base] and [kohana3-admin][https://github.com/badsyntax/kohana3-admin]
-* The Kohana 3 examples site requires the [kohana3-base][https://github.com/badsyntax/kohana3-base] module to work!
+* Most of the continuing functionality now exists in [kohana3-base](https://github.com/badsyntax/kohana3-base) and [kohana3-admin](https://github.com/badsyntax/kohana3-admin)
+* The Kohana 3 examples site requires the [kohana3-base](https://github.com/badsyntax/kohana3-base) module to work!
 
 Demo:
 
