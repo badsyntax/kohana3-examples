@@ -11,6 +11,7 @@ These example files demonstrate basic [Kohana 3](http://kohanaframework.org/) fu
 * OAuth (twitter)
 * OpenID (using [PHP OpenID](https://github.com/openid/php-openid))
 * Pagination
+* Base module, admin module
 * Media compression & caching (using the [Media module](https://github.com/azampagl/kohana-media))
 * [HTML5 Boilerplate](http://html5boilerplate.com/) & [jQuery](http://jquery.com/)
 * AJAX examples (html, xml + json)
@@ -33,7 +34,11 @@ Have a look around the repository to see the example code.
 Some of the code has been collated from the resources listed in the [DOCS](https://github.com/badsyntax/kohana3-examples/blob/master/DOCS.md). I've
 referenced these projects in the example files.
 
-This respository is constantly changing as I learn better methods and approaches, I don't indent on tagging anytime soon!
+*Please note*
+
+* This respository is constantly changing as I learn better methods and approaches, I don't indent on tagging anytime soon!
+* Most of the continuing functionality now exists in [kohana3-base][https://github.com/badsyntax/kohana3-base] and [kohana3-admin][https://github.com/badsyntax/kohana3-admin]
+* The Kohana 3 examples site requires the [kohana3-base][https://github.com/badsyntax/kohana3-base] module to work!
 
 Demo:
 
