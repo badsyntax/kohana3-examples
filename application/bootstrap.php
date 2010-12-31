@@ -97,9 +97,10 @@ Kohana::modules(array(
 	'cache'		=> MODPATH.'cache',	// Caching with multiple backends
 	'pagination'	=> MODPATH.'pagination',// Paging of results
 	'message'	=> MODPATH.'message',
+	'image'	=> MODPATH.'image',	// Image manipulation
+	'imagemagick-driver' => MODPATH.'imagemagick-driver',
 	// 'userguide'	=> MODPATH.'userguide', // User guide and API documentation
 	// 'codebench'	=> MODPATH.'codebench', // Benchmarking tool
-	// 'image'	=> MODPATH.'image',	// Image manipulation
 	// 'unittest'	=> MODPATH.'unittest',	// Unit testing
 ));
 
