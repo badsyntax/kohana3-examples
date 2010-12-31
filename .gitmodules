@@ -49,3 +49,9 @@
 [submodule "application/vendor/swiftmailer"]
 	path = application/vendor/swiftmailer
 	url = https://github.com/swiftmailer/swiftmailer.git
+[submodule "kohana-imagemagick-driver"]
+	path = kohana-imagemagick-driver
+	url = git@github.com:badsyntax/kohana-imagemagick-driver.git
+[submodule "modules/imagemagick-driver"]
+	path = modules/imagemagick-driver
+	url = git@github.com:badsyntax/kohana-imagemagick-driver.git
