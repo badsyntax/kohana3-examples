@@ -87,7 +87,6 @@ Kohana::$config->attach(new Kohana_Config_File);
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-	'admin'		=> MODPATH.'admin',
 	'base'		=> MODPATH.'base',
 	'database'	=> MODPATH.'database',	// Database access
 	'orm'		=> MODPATH.'orm',	// Object Relationship Mapping
@@ -97,8 +96,7 @@ Kohana::modules(array(
 	'cache'		=> MODPATH.'cache',	// Caching with multiple backends
 	'pagination'	=> MODPATH.'pagination',// Paging of results
 	'message'	=> MODPATH.'message',
-	'image'	=> MODPATH.'image',	// Image manipulation
-	'imagemagick-driver' => MODPATH.'imagemagick-driver',
+	'image'		=> MODPATH.'image',	// Image manipulation
 	// 'userguide'	=> MODPATH.'userguide', // User guide and API documentation
 	// 'codebench'	=> MODPATH.'codebench', // Benchmarking tool
 	// 'unittest'	=> MODPATH.'unittest',	// Unit testing
