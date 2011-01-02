@@ -14,8 +14,6 @@ Deny From All
 # Protect application and system files from being viewed
 RewriteRule ^(?:application|modules|system)\b.* index.php/$0 [L]
 
-RewriteRule ^(css|img|js)/(.*)	media/$1/$2
-
 # Allow any files or directories that exist to be displayed directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
