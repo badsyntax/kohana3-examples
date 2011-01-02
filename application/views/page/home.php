@@ -26,4 +26,3 @@
 	you can set the environment variable in the 'application/bootstrap.php' file.
 </p>
 <?php }?>
-
