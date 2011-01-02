@@ -41,7 +41,7 @@
 
 		profiler();
 	
-		$('#messages').fadeIn('fast');
+		$('#messages').fadeIn(800);
 	});
 
 })(this.jQuery, document);
