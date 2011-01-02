@@ -6,17 +6,17 @@
 
 class Controller_Auth_OpenID extends Controller_Base {
 
-        protected $store_path = '/tmp/_php_consumer_test';
+	protected $store_path = '/tmp/_php_consumer_test';
 
 	public function before()
 	{
 		parent::before();
 		
 		// Ensure this script has permission to create the store path
-                if (!file_exists($this->store_path) && !@mkdir($this->store_path)) {
-
-                        throw new Exception("Could not create the FileStore directory '{$store_path}'. Please check the effective permissions.");
-                }
+		if (!file_exists($this->store_path) && !@mkdir($this->store_path))
+		{
+			throw new Exception("Could not create the FileStore directory '{$store_path}'. Please check the effective permissions.");
+		}
 
 		// Set the include path to the openid directory
 		ini_set('include_path', 'application/vendor/openid');
@@ -71,15 +71,15 @@ class Controller_Auth_OpenID extends Controller_Base {
 		// Begin the OpenID authentication process.
 		$auth_request = $consumer->begin($openid);
 
-		if (!$auth_request) {
-
+		if (!$auth_request)
+		{
 			throw new Exception(__('Authentication error: not a valid OpenID.'));
 		}
 
 		$sreg_request = Auth_OpenID_SRegRequest::build( array('email'), array('nickname', 'fullname') );
 
-		if ($sreg_request) {
-
+		if ($sreg_request)
+		{
 			$auth_request->addExtension($sreg_request);
 		}
 
@@ -93,19 +93,19 @@ class Controller_Auth_OpenID extends Controller_Base {
 		// Redirect the user to the OpenID server for authentication.
 		// Store the token for this authentication so we can verify the response.
 		// For OpenID 1, send a redirect.  For OpenID 2, use a Javascript form to send a POST request to the server.
-		if ($auth_request->shouldSendRedirect()) {
-
+		if ($auth_request->shouldSendRedirect())
+		{
 			$redirect_url = $auth_request->redirectURL(URL::base(TRUE, TRUE), $redirect_url);
 
-			if (Auth_OpenID::isFailure($redirect_url)) {
-
+			if (Auth_OpenID::isFailure($redirect_url))
+			{
 				throw new Exception(__('Could not redirect to server:').' '.$redirect_url->message);
 			}
 
 			$this->request->redirect($redirect_url);
-
-		} else {
-
+		} 
+		else
+		{
 			// the OpenID library will return a full html document
 			// Auth_OpenID::autoSubmitHTML will wrap the form in body and html tags
 			// see: mobules/openid/vendor/Auth/OpenID/Consumer.php
@@ -115,12 +115,13 @@ class Controller_Auth_OpenID extends Controller_Base {
 				false,
 				array('id' => 'openid_message')
 			);
+			
 			// we just want the form HTML, so strip out the form 
 			$form_html = preg_replace('/^.*<html.*<form/im', '<form', $form_html);
 			$form_html = preg_replace('/<\/body>.*/im', '', $form_html);
 
-			if (Auth_OpenID::isFailure($form_html)) {
-
+			if (Auth_OpenID::isFailure($form_html))
+			{
 				throw new Exception(__('Could not redirect to server:').' '.$form_html->message);
 			}
 
@@ -128,8 +129,8 @@ class Controller_Auth_OpenID extends Controller_Base {
 		}
 	}
 
-	public function action_finish(){
-
+	public function action_finish()
+	{
 		// Get the OpenID identity
 		$openid = Arr::get($_REQUEST, 'openid_identity');
 
@@ -142,24 +143,26 @@ class Controller_Auth_OpenID extends Controller_Base {
 
 		$response = $consumer->complete(URL::site($this->request->uri, TRUE));
 
-		if ($response->status == Auth_OpenID_CANCEL) {
-
+		if ($response->status == Auth_OpenID_CANCEL)
+		{
 			throw new Exception(__('OpenID authentication cancelled.'));
 
-		} else if ($response->status == Auth_OpenID_FAILURE) {
-
+		}
+		elseif ($response->status == Auth_OpenID_FAILURE)
+		{
 			throw new Exception(__('OpenID authentication failed:').' '.$response->message);
-
-		} else if ($response->status == Auth_OpenID_SUCCESS) {
-
+		} 
+		elseif ($response->status == Auth_OpenID_SUCCESS)
+		{
 			$openid = htmlentities( $response->getDisplayIdentifier() );
 
 			$user = ORM::factory('user')->save_openid($openid);
 
 			Auth::instance()->force_login($user);
 			
-			Message::set(Message::SUCCESS, __($user->username.' successfully signed in.'));
-
+			$message = $user->username.' successfully signed in.';
+			Message::set(Message::SUCCESS, __($message));
+			
 			$this->request->redirect($return_to);
 		}
 	}
