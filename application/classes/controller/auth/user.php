@@ -38,8 +38,9 @@ class Controller_Auth_User extends Controller_Base {
 			// If successfull login then redirect
 			if (ORM::factory('user')->login($_POST))
 			{
-				Message::set(Message::SUCCESS, __($_POST['username'].' successfully signed in.'));
-			
+				$message = $_POST['username'].' successfully signed in.';
+				Message::set(Message::SUCCESS, __($message));
+							
 				$this->request->redirect($return_to);
 			}
 		
@@ -58,8 +59,14 @@ class Controller_Auth_User extends Controller_Base {
 			->bind('errors', $errors);
 
 		// If successful signup then redirect to login page
-		ORM::factory('user')->signup($_POST) AND $this->request->redirect('');			
-
+		if (ORM::factory('user')->signup($_POST)){
+			
+			$message = $_POST['username'].' successfully registerd.';
+			Message::set(Message::SUCCESS, __($message));
+			
+			$this->request->redirect('');			
+		}
+		
 		if ($errors = $_POST->errors('signup'))
 		{
 			 Message::set(Message::ERROR, __('Please correct the errors.'));
@@ -76,10 +83,18 @@ class Controller_Auth_User extends Controller_Base {
 		$this->template->title = __('Profile');
 		$this->template->content = View::factory('page/auth/profile')
 			->bind('errors', $errors);
+			
+		$user = Auth::instance()->get_user();
 
 		// Update logged in user details, if successfull then redirect to profile page
-		Auth::instance()->get_user()->update($_POST) AND $this->request->redirect('user/profile');
-
+		if ($user->update($_POST)){
+			
+			$message = $user->username.' profile updated.';
+			Message::set(Message::SUCCESS, __($message));
+				
+			$this->request->redirect('user/profile');
+		}
+		
 		if ($errors = $_POST->errors('profile'))
 		{
 			 Message::set(Message::ERROR, __('Please correct the errors.'));
