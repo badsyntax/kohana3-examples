@@ -45,8 +45,8 @@ class Controller_General extends Controller_Base {
 
 		$errors = $data->errors('contact');
 
-		if ( Request::$is_ajax ) {
-		
+		if ( Request::$is_ajax ) 
+		{
 			$this->template->content = json_encode($errors);
 		
 			$this->request->headers['Content-Type'] = 'application/json';
@@ -67,7 +67,7 @@ class Controller_General extends Controller_Base {
 
 	public function action_ajax_json()
 	{
-		$data = new stdclass();
+		$data = new stdClass();
 		$data->id = '323';
 		$data->name = 'John';
 		$data->surname = 'Smith';

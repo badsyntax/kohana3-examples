@@ -6,5 +6,8 @@ class Controller_Home extends Controller_Base {
 	{
 		$this->template->title = __('Kohana3 Examples');
 		$this->template->content = View::factory('page/home');
+
+		$description = Kohana::config('site.title');
+		//die($description);
 	}
 }
