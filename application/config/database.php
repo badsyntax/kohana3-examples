@@ -1,8 +1,8 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 return 
-	Kohana::$environment == Kohana::DEVELOPMENT
-	/* DEVELOPMENT database */
+	Kohana::$environment == Kohana::PRODUCTION
+	/* PRODUCTION database */
 	? array
 	(
 		'default' => array
@@ -10,10 +10,10 @@ return
 			'type'       => 'mysql',
 			'connection' => array(
 				'hostname'   => 'localhost',
-				'username'   => 'root',
+				'username'   => '',
 				'password'   => '',
 				'persistent' => FALSE,
-				'database'   => 'example_dev',
+				'database'   => 'kohana3-examples_live',
 			),
 			'table_prefix' => '',
 			'charset'      => 'utf8',
@@ -21,7 +21,7 @@ return
 			'profiling'    => TRUE,
 		)
 	)
-	/* PRODUCTION database */
+	/* DEVELOPMENT database */
 	: array
 	(
 		'default' => array
@@ -29,10 +29,10 @@ return
 			'type'       => 'mysql',
 			'connection' => array(
 				'hostname'   => 'localhost',
-				'username'   => 'root',
+				'username'   => '',
 				'password'   => '',
 				'persistent' => FALSE,
-				'database'   => 'example_live',
+				'database'   => 'kohana3-examples_dev',
 			),
 			'table_prefix' => '',
 			'charset'      => 'utf8',
