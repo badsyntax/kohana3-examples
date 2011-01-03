@@ -49,3 +49,6 @@
 [submodule "modules/admin"]
 	path = modules/admin
 	url = git@github.com:badsyntax/kohana3-admin.git
+[submodule "modules/imagemagick-driver"]
+	path = modules/imagemagick-driver
+	url = git://github.com/badsyntax/kohana-imagemagick-driver.git
