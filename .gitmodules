@@ -46,3 +46,6 @@
 [submodule "modules/base"]
 	path = modules/base
 	url = git://github.com/badsyntax/kohana3-base.git
+[submodule "modules/admin"]
+	path = modules/admin
+	url = git@github.com:badsyntax/kohana3-admin.git
