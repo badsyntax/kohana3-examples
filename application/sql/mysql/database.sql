@@ -628,6 +628,10 @@ CREATE TABLE IF NOT EXISTS `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 
 
+INSERT INTO `roles` (`id`, `name`, `description`) VALUES(1, 'login', 'Login privileges, granted after account confirmation');
+INSERT INTO `roles` (`id`, `name`, `description`) VALUES(2, 'admin', 'Administrative user, has access to everything.');
+
+
 --
 -- Table structure for table `roles_users`
 --
@@ -673,7 +677,10 @@ CREATE TABLE IF NOT EXISTS `user_tokens` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 
-
+INSERT INTO `users` (`id`, `oauth_id`, `oauth_provider`, `openid_id`, `email`, `username`, `password`, `logins`, `last_login`) 
+VALUES (1, NULL, NULL, NULL, 'demo@example.com', 'admin', '0a08cb18832d5caaf5c9e7b1f340c40894cb9ba295d5cdb50d', 0, 0);
+INSERT INTO `roles_users` (`user_id`, `role_id`) VALUES (1, 1); -- LOGIN
+INSERT INTO `roles_users` (`user_id`, `role_id`) VALUES (1, 2); -- ADMIN
 --
 -- Constraints for dumped tables
 --
