@@ -12,28 +12,23 @@ class Controller_Auth_OpenID extends Controller_Base {
 	{
 		parent::before();
 		
-		// Ensure this script has permission to create the store path
+		// Ensure this script has permission to create the data store path
 		if (!file_exists($this->store_path) && !@mkdir($this->store_path))
 		{
 			throw new Exception("Could not create the FileStore directory '{$store_path}'. Please check the effective permissions.");
 		}
 
-		// Set the include path to the openid directory
-		ini_set('include_path', 'application/vendor/openid');
-
-		// Start the session
+		// Start the session (needed for YADIS)	 
 		Session::instance();
 
-		// Load the OpenID lib
-		require Kohana::find_file('vendor', 'openid/Auth/OpenID/Consumer');
-		require Kohana::find_file('vendor', 'openid/Auth/OpenID/FileStore');
-		require Kohana::find_file('vendor', 'openid/Auth/OpenID/SReg');
-		require Kohana::find_file('vendor', 'openid/Auth/OpenID/PAPE');
-	}
-	
-	public function action_index()
-	{
-		$this->request->redirect('');
+		// Set the include path to the OpenID directory
+		ini_set('include_path', 'application/vendor/openid');
+
+		// Load the required OpenID files
+		require_once Kohana::find_file('vendor', 'openid/Auth/OpenID/Consumer');
+		require_once Kohana::find_file('vendor', 'openid/Auth/OpenID/FileStore');
+		require_once Kohana::find_file('vendor', 'openid/Auth/OpenID/SReg');
+		require_once Kohana::find_file('vendor', 'openid/Auth/OpenID/PAPE');
 	}
 
 	public function action_signin()
@@ -47,7 +42,10 @@ class Controller_Auth_OpenID extends Controller_Base {
 		$return_to = Arr::get($_REQUEST, 'return_to', '');
 
 		// If openid_identity variable exists in the request, then add it to POST
-		Arr::get($_REQUEST, 'openid_identity', FALSE) AND $_POST['openid_identity'] = Arr::get($_REQUEST, 'openid_identity');
+		if (Arr::get($_REQUEST, 'openid_identity', FALSE) !== FALSE)
+		{
+			$_POST['openid_identity'] = Arr::get($_REQUEST, 'openid_identity');
+		}
 
 		$data = Validate::factory($_POST)
 			->filter('openid_identity', 'trim')
@@ -55,44 +53,51 @@ class Controller_Auth_OpenID extends Controller_Base {
 			->rule('openid_identity', 'not_empty')
 			->rule('openid_identity', 'url');
 
-		$data->check() AND $this->begin($data['openid_identity']);
-
-		$_POST = $data->as_array();
-
-		$errors = $data->errors('auth');
+		// Validation success!
+		if ($data->check())
+		{
+			// Begin the OpenID authentication process
+			$this->begin($data['openid_identity']);
+		}
+		// Validation fail!
+		else
+		{
+			$_POST = $data->as_array();
+			$errors = $data->errors('auth');
+		}
 	}
 
-	private function begin($openid='')
+	private function begin($openid = NULL)
 	{
 		$store = new Auth_OpenID_FileStore($this->store_path);
 
 		$consumer = new Auth_OpenID_Consumer($store);
 
-		// Begin the OpenID authentication process.
 		$auth_request = $consumer->begin($openid);
-
 		if (!$auth_request)
 		{
 			throw new Exception(__('Authentication error: not a valid OpenID.'));
 		}
 
-		$sreg_request = Auth_OpenID_SRegRequest::build( array('email'), array('nickname', 'fullname') );
-
+		$sreg_request = Auth_OpenID_SRegRequest::build(array('email'), array('nickname', 'fullname'));
 		if ($sreg_request)
 		{
 			$auth_request->addExtension($sreg_request);
 		}
 
 		$pape_request = new Auth_OpenID_PAPE_Request();
-
-		$pape_request AND $auth_request->addExtension($pape_request);
+		if ($pape_request)
+		{
+			$auth_request->addExtension($pape_request);
+		}
 
 		// Build the redirect URL with the return page included
 		$redirect_url = URL::site('openid/finish?return_to=' . Arr::get($_REQUEST, 'return_to', ''), TRUE);
 
 		// Redirect the user to the OpenID server for authentication.
 		// Store the token for this authentication so we can verify the response.
-		// For OpenID 1, send a redirect.  For OpenID 2, use a Javascript form to send a POST request to the server.
+		
+		// For OpenID 1, send a redirect:
 		if ($auth_request->shouldSendRedirect())
 		{
 			$redirect_url = $auth_request->redirectURL(URL::base(TRUE, TRUE), $redirect_url);
@@ -104,6 +109,7 @@ class Controller_Auth_OpenID extends Controller_Base {
 
 			$this->request->redirect($redirect_url);
 		} 
+		// For OpenID 2, use a Javascript form to send a POST request to the server.
 		else
 		{
 			// the OpenID library will return a full html document
@@ -116,7 +122,7 @@ class Controller_Auth_OpenID extends Controller_Base {
 				array('id' => 'openid_message')
 			);
 			
-			// we just want the form HTML, so strip out the form 
+			// We just want the form HTML, so strip out the form 
 			$form_html = preg_replace('/^.*<html.*<form/im', '<form', $form_html);
 			$form_html = preg_replace('/<\/body>.*/im', '', $form_html);
 
@@ -146,7 +152,6 @@ class Controller_Auth_OpenID extends Controller_Base {
 		if ($response->status == Auth_OpenID_CANCEL)
 		{
 			throw new Exception(__('OpenID authentication cancelled.'));
-
 		}
 		elseif ($response->status == Auth_OpenID_FAILURE)
 		{
@@ -156,15 +161,19 @@ class Controller_Auth_OpenID extends Controller_Base {
 		{
 			$openid = htmlentities( $response->getDisplayIdentifier() );
 
+			// Create the user in our DB
 			$user = ORM::factory('user')->save_openid($openid);
-
+			
+			// Log the user in
 			Auth::instance()->force_login($user);
 			
+			// TODO: As we only have the open idententity, we should redirect to 
+			// profile page so user can update email etc.
+									
 			$message = $user->username.' successfully signed in.';
 			Message::set(Message::SUCCESS, __($message));
 			
 			$this->request->redirect($return_to);
 		}
 	}
-
 } // End Controller_Auth_OpenID
