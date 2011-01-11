@@ -46,3 +46,4 @@ Demo:
 * Development: [http://dev.kohana3.badsyntax.co/](http://dev.kohana3.badsyntax.co/)
 
 Suggestions welcome, send emails to willis.rh@gmail.com
+
