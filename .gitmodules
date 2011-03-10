@@ -34,9 +34,6 @@
 [submodule "application/vendor/swiftmailer"]
 	path = application/vendor/swiftmailer
 	url = git://github.com/swiftmailer/swiftmailer.git
-[submodule "modules/base"]
-	path = modules/base
-	url = git://github.com/badsyntax/kohana3-base.git
 [submodule "modules/media"]
 	path = modules/media
 	url = git://github.com/azampagl/kohana-media.git
