@@ -40,3 +40,9 @@
 [submodule "modules/media"]
 	path = modules/media
 	url = git://github.com/azampagl/kohana-media.git
+[submodule "modules/admin"]
+	path = modules/admin
+	url = git@github.com:badsyntax/kohana3-admin.git
+[submodule "modules/orm_mptt"]
+	path = modules/orm_mptt
+	url = git://github.com/kiall/kohana3-orm_mptt.git
