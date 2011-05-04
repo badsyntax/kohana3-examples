@@ -19,9 +19,9 @@ These example files demonstrate basic [Kohana 3](http://kohanaframework.org/) fu
 * So others can learn KO3
 * As a reference
 
-I don't suggest using these files as a boilerplate project. 
+**I don't suggest using these files as a boilerplate project.**
 
-Have a look around the repository to see the example code. Feel free to copy.
+Have a look around the repository to see the example code. Feel free to copy. I cannot offer support.
 
 *Disclaimer:*
 
