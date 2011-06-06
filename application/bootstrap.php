@@ -85,8 +85,11 @@ Kohana::$config->attach(new Kohana_Config_File);
 
 /**
  * Enable modules. Modules are referenced by a relative or absolute path.
+ * 
+ * Add new admin modules to the top.
  */
 Kohana::modules(array(
+	'assetmanager'	=> MODPATH.'assetmanager',
 	'admin'		=> MODPATH.'admin',
 	'base'		=> MODPATH.'base',
 	'database'	=> MODPATH.'database',	// Database access
